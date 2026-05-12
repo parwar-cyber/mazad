@@ -1,0 +1,14 @@
+{
+  "@@locale": "tr",
+  "appTitle": "Mazad",
+  "homeWelcome": "Mazad'a hoş geldiniz",
+  "homeTagline": "Irak'ın en güvenilir açık artırma pazaryeri.",
+  "switchLanguage": "Dil",
+  "languageEnglish": "English",
+  "languageArabic": "العربية",
+  "languageKurdish": "کوردی",
+  "languageTurkish": "Türkçe",
+  "updateRequiredTitle": "Güncelleme gerekli",
+  "updateRequiredBody": "Mazad'ın bu sürümü artık desteklenmiyor. Devam etmek için lütfen güncelleyin.",
+  "updateNow": "Şimdi güncelle"
+}

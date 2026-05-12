@@ -1,0 +1,14 @@
+{
+  "@@locale": "ku",
+  "appTitle": "مەزاد",
+  "homeWelcome": "بەخێربێیت بۆ مەزاد",
+  "homeTagline": "متمانەپێکراوترین بازاڕی مەزاد لە عێراق.",
+  "switchLanguage": "زمان",
+  "languageEnglish": "English",
+  "languageArabic": "العربية",
+  "languageKurdish": "کوردی",
+  "languageTurkish": "Türkçe",
+  "updateRequiredTitle": "نوێکردنەوە پێویستە",
+  "updateRequiredBody": "ئەم وەشانەی مەزاد ئیتر پشتگیری ناکرێت. تکایە نوێی بکەرەوە بۆ بەردەوامبوون.",
+  "updateNow": "ئێستا نوێی بکەرەوە"
+}

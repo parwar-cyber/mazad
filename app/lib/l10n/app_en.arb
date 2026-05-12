@@ -1,0 +1,28 @@
+{
+  "@@locale": "en",
+  "appTitle": "Mazad",
+  "@appTitle": { "description": "App display name" },
+
+  "homeWelcome": "Welcome to Mazad",
+  "@homeWelcome": { "description": "Greeting on the home screen placeholder" },
+
+  "homeTagline": "Iraq's most trusted auction marketplace.",
+  "@homeTagline": { "description": "Sub-headline under the welcome message" },
+
+  "switchLanguage": "Language",
+  "@switchLanguage": { "description": "Label for language switcher" },
+
+  "languageEnglish": "English",
+  "languageArabic": "العربية",
+  "languageKurdish": "کوردی",
+  "languageTurkish": "Türkçe",
+
+  "updateRequiredTitle": "Update required",
+  "@updateRequiredTitle": { "description": "Force-update screen headline" },
+
+  "updateRequiredBody": "This version of Mazad is no longer supported. Please update to continue.",
+  "@updateRequiredBody": { "description": "Force-update screen body copy" },
+
+  "updateNow": "Update now",
+  "@updateNow": { "description": "Force-update screen CTA" }
+}

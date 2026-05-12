@@ -1,0 +1,14 @@
+{
+  "@@locale": "ar",
+  "appTitle": "مزاد",
+  "homeWelcome": "مرحبًا بك في مزاد",
+  "homeTagline": "منصة المزادات الأكثر موثوقية في العراق.",
+  "switchLanguage": "اللغة",
+  "languageEnglish": "English",
+  "languageArabic": "العربية",
+  "languageKurdish": "کوردی",
+  "languageTurkish": "Türkçe",
+  "updateRequiredTitle": "التحديث مطلوب",
+  "updateRequiredBody": "هذه النسخة من مزاد لم تعد مدعومة. يرجى التحديث للمتابعة.",
+  "updateNow": "حدّث الآن"
+}
