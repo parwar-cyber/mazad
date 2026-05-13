@@ -64,4 +64,34 @@ void main() {
       expect(calculatePercentageFee(1, 7), 0);
     });
   });
+
+  group('KycTierCeiling — bigint discipline, mirrors SQL helper', () {
+    test('Tier 1 ceiling is 100,000 IQD as int', () {
+      expect(KycTierCeiling.tier1, 100000);
+      expect(KycTierCeiling.tier1, isA<int>());
+    });
+
+    test('Tier 0 is zero (browse-only)', () {
+      expect(KycTierCeiling.tier0, 0);
+      expect(KycTierCeiling.forTier(0), 0);
+    });
+
+    test('Tier 2 ceiling is bigint max — no practical ceiling', () {
+      expect(KycTierCeiling.tier2, 9223372036854775807);
+    });
+
+    test('forTier dispatches by integer', () {
+      expect(KycTierCeiling.forTier(1), 100000);
+      expect(KycTierCeiling.forTier(2), KycTierCeiling.tier2);
+      expect(KycTierCeiling.forTier(99), 0); // unknown defaults to 0
+    });
+
+    test('Tier 1 formats correctly in Turkish (period thousands sep)', () {
+      // The single most likely formatting bug — verify on the ceiling too.
+      expect(
+        formatIQD(KycTierCeiling.tier1, const Locale('tr')),
+        '100.000 IQD',
+      );
+    });
+  });
 }

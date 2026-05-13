@@ -43,7 +43,7 @@ A clean, trustworthy auction marketplace with three sale modes — **Auction**, 
 - **Dynamic Countdown** — realtime synced to `current_close_at`, with clear "Discovery ends in" vs "Smart Close: ends 12h after last bid".
 - **One-tap Bid Console** — `+ min`, `+ 2x`, `+ 5x`, `Buy Now`, `Set max bid`.
 - **Proxy Bidding** — user sets a max; system auto-bids.
-- **Live Activity Feed** — pseudonymized bidders (e.g. "bidder_4f2a") + city.
+- **Live Activity Feed** — pseudonymized bidders (e.g. "bidder_4f2a01") + city.
 - **Comprehensive Specs** — category-specific schemas: condition, dimensions, weight, provenance.
 
 ### 🔍 Discovery & Personalization
@@ -402,7 +402,7 @@ Buyer or seller files with reason + evidence → order → `disputed`, payout fr
 - **Anti-shill detection** on every bid: IP/device cluster patterns, new-account velocity, < 7-day accounts on same-seller items. Flag → manual review → auto-cancel if confirmed.
 - **Content moderation**: image+video hash blacklist + Gemini classifier for prohibited categories (weapons, drugs, counterfeit, adult). Auto-reject high-confidence; queue ambiguous; user-reportable.
 - **Reputation**: weighted (completed orders, avg rating, dispute rate, account age, vouches).
-- **Pseudonyms** in public bid feeds: `bidder_4f2a` + city.
+- **Pseudonyms** in public bid feeds: `bidder_4f2a01` + city. Format: `bidder_` + 6 lowercase hex chars. See ADR-0009.
 
 ---
 

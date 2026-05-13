@@ -34,6 +34,9 @@ dependencies:
   # Launch store URLs from ForceUpdateScreen
   url_launcher: ^6.3.0
 
+  # Phase 1 — KYC ID document capture (camera + gallery).  See ADR-0007.
+  image_picker: ^1.1.2
+
   cupertino_icons: ^1.0.8
 
 dev_dependencies:

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mazad/core/design/tokens.dart';
 import 'package:mazad/core/design/typography.dart';
 import 'package:mazad/core/i18n/locale_provider.dart';
+import 'package:mazad/features/auth/data/auth_providers.dart';
 import 'package:mazad/features/system/force_update_notifier.dart';
 import 'package:mazad/l10n/generated/app_localizations.dart';
 
@@ -43,6 +45,8 @@ class HomeScreen extends ConsumerWidget {
                   color: MazadTokens.onSurfaceMuted,
                 ),
               ),
+              const SizedBox(height: MazadTokens.sp6),
+              const _AuthCta(),
               const Spacer(),
               // Debug-only: simulate a 426 from the backend so reviewers can
               // see the force-update screen without a real server.
@@ -65,6 +69,24 @@ class HomeScreen extends ConsumerWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _AuthCta extends ConsumerWidget {
+  const _AuthCta();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
+    final user = ref.watch(currentUserProvider);
+    return SizedBox(
+      width: double.infinity,
+      child: FilledButton(
+        onPressed: () =>
+            user == null ? context.push('/auth') : context.push('/dashboard'),
+        child: Text(user == null ? l10n.homeSignIn : l10n.homeOpenDashboard),
       ),
     );
   }
