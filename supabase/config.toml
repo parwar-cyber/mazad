@@ -31,6 +31,28 @@ enable_signup = true
 [auth.sms]
 enable_signup = true
 enable_confirmations = true
+# Iraqi mobile numbers only.  Two-letter ISO country code per Supabase docs.
+test_otp = { "+9647700000000" = "424242" }  # local-dev only; never on hosted
+template = "Mazad: your code is {{ .Code }}. Valid for 5 minutes."
+
+# Per-phone OTP rate limits.  CLAUDE.md non-negotiables: 3/hour, 10/day.
+# Supabase exposes per-hour throttles; the daily cap is enforced by us in
+# Phase 5 (notification dispatcher) and on the OTP send path via DB
+# triggers if we ever surface custom OTP UX.
+max_frequency = "1m"   # >=60s between OTP sends to the same phone
+
+# Twilio Verify provider — credentials come from .env, never committed.
+[auth.sms.twilio]
+enabled = true
+account_sid = "env(TWILIO_ACCOUNT_SID)"
+message_service_sid = "env(TWILIO_VERIFY_SID)"
+auth_token = "env(TWILIO_AUTH_TOKEN)"
 
 [functions.version_health]
 verify_jwt = false
+
+# kyc_doc_url verifies the user JWT itself (header forward), so no
+# additional verification is needed here.  Keeping verify_jwt = true would
+# also work; explicit is clearer.
+[functions.kyc_doc_url]
+verify_jwt = true

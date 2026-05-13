@@ -55,3 +55,29 @@ int minimumBidIncrement(int currentHigh) {
 /// Integer fee math. `(hammer * pct) ~/ 100`. Truncation by design.
 int calculatePercentageFee(int amount, int percent) =>
     (amount * percent) ~/ 100;
+
+/// Per-tier IQD action ceiling. Mirrors the SQL `kyc_max_action_iqd(int)`
+/// helper in `20260513000001_phase1_profiles_bootstrap.sql`. Server is
+/// authoritative; this is for client display and pre-flight UI checks
+/// (disable "Buy Now" for Tier 1 listings above the ceiling, etc.).
+///
+/// Bigint discipline: integers only — never `double` for money.
+class KycTierCeiling {
+  KycTierCeiling._();
+
+  static const int tier0 = 0;
+  static const int tier1 = 100000;            // 100,000 IQD
+  static const int tier2 = 9223372036854775807; // bigint max — no ceiling
+
+  static int forTier(int tier) {
+    switch (tier) {
+      case 1:
+        return tier1;
+      case 2:
+        return tier2;
+      case 0:
+      default:
+        return tier0;
+    }
+  }
+}
