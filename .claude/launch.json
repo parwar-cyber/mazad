@@ -1,0 +1,24 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "flutter-web",
+      "runtimeExecutable": "flutter",
+      "runtimeArgs": ["run", "-d", "web-server", "--web-port", "8080", "--web-hostname", "0.0.0.0"],
+      "port": 8080,
+      "cwd": "app"
+    },
+    {
+      "name": "supabase-local",
+      "runtimeExecutable": "supabase",
+      "runtimeArgs": ["start"],
+      "port": 54321
+    },
+    {
+      "name": "supabase-functions",
+      "runtimeExecutable": "supabase",
+      "runtimeArgs": ["functions", "serve", "--no-verify-jwt"],
+      "port": 54321
+    }
+  ]
+}
