@@ -107,3 +107,32 @@ Bucket policy summary (see `20260513000003_phase1_kyc_docs_bucket.sql`):
 - Payment provider outage failover
 - Dispute SLA escalation
 - SMS provider rotation (Twilio ↔ Vonage)
+
+## Pre-launch checklist
+
+These items must be resolved before any public launch, App Store submission, or paid marketing. Each has a hard gate noted.
+
+### 1. OTP rate limit (per-phone)
+- **Status**: Deferred from Phase 1 (ADR-0007). Only Supabase Auth's `max_frequency = 1m` is active.
+- **Required**: Per-phone caps of 3 OTPs/hour and 10 OTPs/day enforced via Supabase Auth webhook → `otp_attempts` table → `before_send` Postgres function.
+- **Hard gate**: Must be live before public launch. OTP abuse on Iraqi numbers is a real Twilio cost-attack vector.
+- **Owner**: Engineering. Schedule in Phase 5 (notifications infrastructure).
+
+### 2. KYC admin review queue
+- **Status**: Deferred from Phase 1 (ADR-0008). `submit_kyc_tier2` auto-grants Tier 2 when `feature_flag('auto_grant_tier2')` is on (dev default).
+- **Required**: Admin queue in Next.js console (Phase 9) where each Tier 2 submission is reviewed by a human before `verified_at` is set.
+- **Hard gate**: `feature_flag('auto_grant_tier2')` must be set to `false` in production. Phase 7 (escrow) MUST NOT open until the queue is live and the flag is off.
+- **Owner**: Engineering (queue) + Ops (reviewer process).
+
+### 3. Translation review status
+- **Status**: All four locales are AI-generated. Only `en` is native-fluent (the engineer).
+- **Required**: Native-speaker review pass on `ar`, `ku`, `tr` ARB files and any UGC AI-translation prompts.
+- **Hard gate**: Before any paid marketing or App Store submission. Wrong Sorani in particular will embarrass the brand with KRI users.
+- **Estimated cost**: ~$200 each for `ar` and `ku`, ~$150 for `tr` (freelance, one-pass review). Sorani translator hardest to source — start search early.
+- **Owner**: Founder.
+
+### 4. Font bundling
+- **Status**: Currently using `google_fonts` (runtime CDN fetch). Iraqi networks are patchy; first-launch Arabic/Kurdish users may see Latin fallback while Vazirmatn downloads.
+- **Required**: Bundle Inter and Vazirmatn as repo assets, ship in app bundle.
+- **Hard gate**: Soft — recommended before public launch but not blocking. Will improve first-launch experience for RTL users.
+- **Owner**: Engineering. Schedule in Phase 9 (polish).
