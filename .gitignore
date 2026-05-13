@@ -54,4 +54,6 @@ admin/out/
 # Claude / agents
 .agents/
 .claude/settings.local.json
+.claude/scheduled_tasks.lock
+.claude/worktrees/
 skills-lock.json
