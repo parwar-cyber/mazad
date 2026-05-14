@@ -340,260 +340,274 @@ class AppLocalizationsEn extends AppLocalizations {
   String get commonGenericError => 'Something went wrong. Please try again.';
 
   @override
-  String get createListingTitle => "List an item";
+  String get createListingTitle => 'List an item';
 
   @override
-  String get createListingChooseType => "What are you selling?";
+  String get createListingChooseType => 'What are you selling?';
 
   @override
-  String get createListingTypeAuction => "Auction";
+  String get createListingTypeAuction => 'Auction';
 
   @override
-  String get createListingTypeAuctionDesc => "Set a starting price and let buyers bid.";
+  String get createListingTypeAuctionDesc =>
+      'Set a starting price and let buyers bid.';
 
   @override
-  String get createListingTypeFixed => "Buy now";
+  String get createListingTypeFixed => 'Buy now';
 
   @override
-  String get createListingTypeFixedDesc => "One price. First buyer wins.";
+  String get createListingTypeFixedDesc => 'One price. First buyer wins.';
 
   @override
-  String get createListingTypeBazaar => "Group bazaar";
+  String get createListingTypeBazaar => 'Group bazaar';
 
   @override
-  String get createListingTypeBazaarDesc => "Under 10,000 IQD. Price drops as more buyers join.";
+  String get createListingTypeBazaarDesc =>
+      'Under 10,000 IQD. Price drops as more buyers join.';
 
   @override
-  String get createListingAuctionLocked => "Auction listings need Tier 2 verification.";
+  String get createListingAuctionLocked =>
+      'Auction listings need Tier 2 verification.';
 
   @override
-  String get createListingTier1Locked => "Verify your phone before listing.";
+  String get createListingTier1Locked => 'Verify your phone before listing.';
 
   @override
-  String get createListingPhotosTitle => "Add photos";
+  String get createListingPhotosTitle => 'Add photos';
 
   @override
-  String get createListingPhotosSubtitle => "Three to five clear photos. We'll use them to draft your listing in four languages.";
+  String get createListingPhotosSubtitle =>
+      'Three to five clear photos. We\'ll use them to draft your listing in four languages.';
 
   @override
-  String get createListingPhotoFromCamera => "Camera";
+  String get createListingPhotoFromCamera => 'Camera';
 
   @override
-  String get createListingPhotoFromGallery => "Gallery";
+  String get createListingPhotoFromGallery => 'Gallery';
 
   @override
-  String get createListingPhotoMinError => "Add at least three photos.";
+  String get createListingPhotoMinError => 'Add at least three photos.';
 
   @override
-  String get createListingPhotosUploading => "Uploading…";
+  String get createListingPhotosUploading => 'Uploading…';
 
   @override
-  String get createListingPhotosFailed => "We couldn't upload all photos. Try again.";
+  String get createListingPhotosFailed =>
+      'We couldn\'t upload all photos. Try again.';
 
   @override
-  String get createListingPhotosContinue => "Continue";
+  String get createListingPhotosContinue => 'Continue';
 
   @override
   String createListingPhotosCount(int count) {
-    return "$count of 10";
+    return '$count of 10';
   }
 
   @override
-  String get createListingAiTitle => "AI assistant";
+  String get createListingAiTitle => 'AI assistant';
 
   @override
-  String get createListingAiSubtitle => "We'll read your photos and draft a four-language listing. You can edit it next.";
+  String get createListingAiSubtitle =>
+      'We\'ll read your photos and draft a four-language listing. You can edit it next.';
 
   @override
-  String get createListingAiRun => "Generate draft";
+  String get createListingAiRun => 'Generate draft';
 
   @override
-  String get createListingAiRunning => "Reading your photos…";
+  String get createListingAiRunning => 'Reading your photos…';
 
   @override
-  String get createListingAiFailed => "We couldn't generate a draft. Fill in the fields manually.";
+  String get createListingAiFailed =>
+      'We couldn\'t generate a draft. Fill in the fields manually.';
 
   @override
-  String get createListingAiRedFlagsTitle => "Heads up";
+  String get createListingAiRedFlagsTitle => 'Heads up';
 
   @override
-  String get createListingAiSkip => "Fill manually instead";
+  String get createListingAiSkip => 'Fill manually instead';
 
   @override
-  String get createListingAiContinue => "Continue to review";
+  String get createListingAiContinue => 'Continue to review';
 
   @override
-  String get createListingReviewTitle => "Review and publish";
+  String get createListingReviewTitle => 'Review and publish';
 
   @override
-  String get createListingReviewSubtitle => "Buyers see exactly what's here. Edit anything that's off.";
+  String get createListingReviewSubtitle =>
+      'Buyers see exactly what\'s here. Edit anything that\'s off.';
 
   @override
-  String get createListingFieldTitle => "Title";
+  String get createListingFieldTitle => 'Title';
 
   @override
-  String get createListingFieldDescription => "Description";
+  String get createListingFieldDescription => 'Description';
 
   @override
-  String get createListingFieldCategory => "Category";
+  String get createListingFieldCategory => 'Category';
 
   @override
-  String get createListingFieldCondition => "Condition";
+  String get createListingFieldCondition => 'Condition';
 
   @override
-  String get createListingFieldStartingPrice => "Starting price (IQD)";
+  String get createListingFieldStartingPrice => 'Starting price (IQD)';
 
   @override
-  String get createListingFieldBuyNowPrice => "Buy-now price (IQD)";
+  String get createListingFieldBuyNowPrice => 'Buy-now price (IQD)';
 
   @override
-  String get createListingFieldReservePrice => "Reserve price (optional, IQD)";
+  String get createListingFieldReservePrice => 'Reserve price (optional, IQD)';
 
   @override
-  String get createListingLocaleEn => "EN";
+  String get createListingLocaleEn => 'EN';
 
   @override
-  String get createListingLocaleAr => "AR";
+  String get createListingLocaleAr => 'AR';
 
   @override
-  String get createListingLocaleKu => "KU";
+  String get createListingLocaleKu => 'KU';
 
   @override
-  String get createListingLocaleTr => "TR";
+  String get createListingLocaleTr => 'TR';
 
   @override
-  String get createListingConditionNew => "New";
+  String get createListingConditionNew => 'New';
 
   @override
-  String get createListingConditionLikeNew => "Like new";
+  String get createListingConditionLikeNew => 'Like new';
 
   @override
-  String get createListingConditionGood => "Good";
+  String get createListingConditionGood => 'Good';
 
   @override
-  String get createListingConditionFair => "Fair";
+  String get createListingConditionFair => 'Fair';
 
   @override
-  String get createListingConditionForParts => "For parts";
+  String get createListingConditionForParts => 'For parts';
 
   @override
-  String get createListingPublish => "Publish listing";
+  String get createListingPublish => 'Publish listing';
 
   @override
-  String get createListingPublishing => "Publishing…";
+  String get createListingPublishing => 'Publishing…';
 
   @override
-  String get createListingPublished => "Your listing is live.";
+  String get createListingPublished => 'Your listing is live.';
 
   @override
   String createListingPublishFailed(String reason) {
-    return "Publish failed: $reason";
+    return 'Publish failed: $reason';
   }
 
   @override
-  String get createListingDiscard => "Discard draft";
+  String get createListingDiscard => 'Discard draft';
 
   @override
-  String get createListingMissingTitle => "Title is required in all four languages.";
+  String get createListingMissingTitle =>
+      'Title is required in all four languages.';
 
   @override
-  String get createListingMissingDescription => "Description is required in all four languages.";
+  String get createListingMissingDescription =>
+      'Description is required in all four languages.';
 
   @override
-  String get createListingMissingCategory => "Pick a category.";
+  String get createListingMissingCategory => 'Pick a category.';
 
   @override
-  String get createListingMissingCondition => "Pick a condition.";
+  String get createListingMissingCondition => 'Pick a condition.';
 
   @override
-  String get createListingMissingStartingPrice => "Set a starting price above zero.";
+  String get createListingMissingStartingPrice =>
+      'Set a starting price above zero.';
 
   @override
-  String get createListingMissingBuyNowPrice => "Set a buy-now price above zero.";
+  String get createListingMissingBuyNowPrice =>
+      'Set a buy-now price above zero.';
 
   @override
-  String get createListingBazaarCap => "Group Bazaar listings cap at 10,000 IQD.";
+  String get createListingBazaarCap =>
+      'Group Bazaar listings cap at 10,000 IQD.';
 
   @override
-  String get listingTypeAuction => "Auction";
+  String get listingTypeAuction => 'Auction';
 
   @override
-  String get listingTypeFixed => "Buy now";
+  String get listingTypeFixed => 'Buy now';
 
   @override
-  String get listingTypeBazaar => "Group Bazaar";
+  String get listingTypeBazaar => 'Group Bazaar';
 
   @override
-  String get listingDetailVerifiedVideo => "Verified video";
+  String get listingDetailVerifiedVideo => 'Verified video';
 
   @override
-  String get listingDetailStartingAt => "Starting at";
+  String get listingDetailStartingAt => 'Starting at';
 
   @override
-  String get listingDetailCurrentHigh => "Current high";
+  String get listingDetailCurrentHigh => 'Current high';
 
   @override
-  String get listingDetailBuyNow => "Buy now";
+  String get listingDetailBuyNow => 'Buy now';
 
   @override
-  String get listingDetailBidUnavailable => "Bidding opens in the next release.";
+  String get listingDetailBidUnavailable =>
+      'Bidding opens in the next release.';
 
   @override
-  String get listingDetailSellerLabel => "Seller";
+  String get listingDetailSellerLabel => 'Seller';
 
   @override
   String listingDetailViews(int count) {
-    return "$count views";
+    return '$count views';
   }
 
   @override
-  String get listingDetailDraftBadge => "Draft";
+  String get listingDetailDraftBadge => 'Draft';
 
   @override
-  String get listingDetailCancelledBadge => "Cancelled";
+  String get listingDetailCancelledBadge => 'Cancelled';
 
   @override
-  String get listingDetailUnavailable => "This listing isn't available.";
+  String get listingDetailUnavailable => 'This listing isn\'t available.';
 
   @override
-  String get browseTitle => "Browse";
+  String get browseTitle => 'Browse';
 
   @override
-  String get browseSearchHint => "Search listings";
+  String get browseSearchHint => 'Search listings';
 
   @override
-  String get browseEmpty => "No listings match.";
+  String get browseEmpty => 'No listings match.';
 
   @override
-  String get browseFilterAll => "All";
+  String get browseFilterAll => 'All';
 
   @override
-  String get browseFilterAuction => "Auctions";
+  String get browseFilterAuction => 'Auctions';
 
   @override
-  String get browseFilterFixed => "Buy now";
+  String get browseFilterFixed => 'Buy now';
 
   @override
-  String get browseFilterBazaar => "Bazaar";
+  String get browseFilterBazaar => 'Bazaar';
 
   @override
-  String get browseResultsTitle => "Results";
+  String get browseResultsTitle => 'Results';
 
   @override
-  String get homeSectionEndingSoon => "Ending soon";
+  String get homeSectionEndingSoon => 'Ending soon';
 
   @override
-  String get homeSectionHot => "Hot";
+  String get homeSectionHot => 'Hot';
 
   @override
-  String get homeSectionBazaar => "Group Bazaar";
+  String get homeSectionBazaar => 'Group Bazaar';
 
   @override
-  String get homeSectionCategories => "Categories";
+  String get homeSectionCategories => 'Categories';
 
   @override
-  String get homeSeeAll => "See all";
+  String get homeSeeAll => 'See all';
 
   @override
-  String get homeFabSell => "Sell";
+  String get homeFabSell => 'Sell';
 }
