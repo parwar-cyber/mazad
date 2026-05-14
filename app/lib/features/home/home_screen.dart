@@ -2,17 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mazad/core/design/tokens.dart';
-import 'package:mazad/core/design/typography.dart';
 import 'package:mazad/core/i18n/locale_provider.dart';
 import 'package:mazad/features/auth/data/auth_providers.dart';
-import 'package:mazad/features/system/force_update_notifier.dart';
+import 'package:mazad/features/listings/browse/home_feed.dart';
 import 'package:mazad/l10n/generated/app_localizations.dart';
 
-/// Phase 0 placeholder. Exists to demonstrate:
-///   1. ARB strings render in the selected locale.
-///   2. RTL flips correctly for ar/ku.
-///   3. Locale switcher works end-to-end.
-///   4. A debug button can trigger the force-update flow.
+/// Anonymous + authed landing.  Wraps the public Home Feed (architecture
+/// §3 — Live now, Hot, Group Bazaar, Categories) with a header that
+/// surfaces auth + dashboard CTAs and the language switcher.
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
@@ -21,73 +18,56 @@ class HomeScreen extends ConsumerWidget {
     final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
     final currentLocale = ref.watch(localeProvider);
+    final user = ref.watch(currentUserProvider);
 
     return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsetsDirectional.all(MazadTokens.sp5),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(l10n.appTitle, style: theme.textTheme.headlineMedium),
-                  _LocaleSwitcher(current: currentLocale),
-                ],
-              ),
-              const SizedBox(height: MazadTokens.sp6),
-              Text(l10n.homeWelcome, style: theme.textTheme.displayMedium),
-              const SizedBox(height: MazadTokens.sp3),
-              Text(
-                l10n.homeTagline,
-                style: theme.textTheme.bodyLarge?.copyWith(
-                  color: MazadTokens.onSurfaceMuted,
-                ),
-              ),
-              const SizedBox(height: MazadTokens.sp6),
-              const _AuthCta(),
-              const Spacer(),
-              // Debug-only: simulate a 426 from the backend so reviewers can
-              // see the force-update screen without a real server.
-              OutlinedButton(
-                onPressed: () => ForceUpdateNotifier.instance.trigger(
-                  minVersion: '1.4.3',
-                  storeUrl: 'https://play.google.com/store/apps/details?id=com.mazad.app',
-                  releaseNotes: const {
-                    'en': 'Critical bid-engine fix.',
-                    'ar': 'إصلاح حرج في محرك المزايدات.',
-                    'ku': 'چاککردنەوەی گرنگ لە سیستەمی مەزاد.',
-                    'tr': 'Kritik teklif motoru düzeltmesi.',
-                  },
-                ),
-                child: Text(
-                  'Trigger force-update (dev)',
-                  style: tabularNumeric(theme.textTheme.labelLarge!),
-                ),
-              ),
-            ],
+      appBar: AppBar(
+        title: Text(l10n.appTitle, style: theme.textTheme.headlineSmall),
+        actions: [
+          IconButton(
+            tooltip: l10n.browseTitle,
+            icon: const Icon(Icons.search),
+            onPressed: () => context.push('/browse'),
           ),
+          _LocaleSwitcher(current: currentLocale),
+          IconButton(
+            tooltip: user == null ? l10n.homeSignIn : l10n.homeOpenDashboard,
+            icon: Icon(user == null ? Icons.login : Icons.person_outline),
+            onPressed: () =>
+                user == null ? context.push('/auth') : context.push('/dashboard'),
+          ),
+        ],
+      ),
+      body: SafeArea(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsetsDirectional.fromSTEB(
+                MazadTokens.sp5,
+                MazadTokens.sp4,
+                MazadTokens.sp5,
+                MazadTokens.sp2,
+              ),
+              child: Align(
+                alignment: AlignmentDirectional.centerStart,
+                child: Text(
+                  l10n.homeTagline,
+                  style: theme.textTheme.bodyLarge
+                      ?.copyWith(color: MazadTokens.onSurfaceMuted),
+                ),
+              ),
+            ),
+            const Expanded(child: HomeFeed()),
+          ],
         ),
       ),
-    );
-  }
-}
-
-class _AuthCta extends ConsumerWidget {
-  const _AuthCta();
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final l10n = AppLocalizations.of(context);
-    final user = ref.watch(currentUserProvider);
-    return SizedBox(
-      width: double.infinity,
-      child: FilledButton(
-        onPressed: () =>
-            user == null ? context.push('/auth') : context.push('/dashboard'),
-        child: Text(user == null ? l10n.homeSignIn : l10n.homeOpenDashboard),
-      ),
+      floatingActionButton: user == null
+          ? null
+          : FloatingActionButton.extended(
+              onPressed: () => context.push('/sell'),
+              icon: const Icon(Icons.add),
+              label: Text(l10n.homeFabSell),
+            ),
     );
   }
 }
@@ -99,17 +79,27 @@ class _LocaleSwitcher extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
-    return DropdownButton<Locale>(
-      value: current,
-      underline: const SizedBox.shrink(),
-      onChanged: (l) {
-        if (l != null) ref.read(localeProvider.notifier).state = l;
-      },
-      items: [
-        DropdownMenuItem(value: const Locale('en'), child: Text(l10n.languageEnglish)),
-        DropdownMenuItem(value: const Locale('ar'), child: Text(l10n.languageArabic)),
-        DropdownMenuItem(value: const Locale('ku'), child: Text(l10n.languageKurdish)),
-        DropdownMenuItem(value: const Locale('tr'), child: Text(l10n.languageTurkish)),
+    return PopupMenuButton<Locale>(
+      tooltip: l10n.switchLanguage,
+      icon: const Icon(Icons.language_outlined),
+      onSelected: (l) => ref.read(localeProvider.notifier).state = l,
+      itemBuilder: (_) => [
+        PopupMenuItem(
+          value: const Locale('en'),
+          child: Text(l10n.languageEnglish),
+        ),
+        PopupMenuItem(
+          value: const Locale('ar'),
+          child: Text(l10n.languageArabic),
+        ),
+        PopupMenuItem(
+          value: const Locale('ku'),
+          child: Text(l10n.languageKurdish),
+        ),
+        PopupMenuItem(
+          value: const Locale('tr'),
+          child: Text(l10n.languageTurkish),
+        ),
       ],
     );
   }

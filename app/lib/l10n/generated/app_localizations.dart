@@ -725,6 +725,510 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Something went wrong. Please try again.'**
   String get commonGenericError;
+
+  /// No description provided for @createListingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'List an item'**
+  String get createListingTitle;
+
+  /// No description provided for @createListingChooseType.
+  ///
+  /// In en, this message translates to:
+  /// **'What are you selling?'**
+  String get createListingChooseType;
+
+  /// No description provided for @createListingTypeAuction.
+  ///
+  /// In en, this message translates to:
+  /// **'Auction'**
+  String get createListingTypeAuction;
+
+  /// No description provided for @createListingTypeAuctionDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Set a starting price and let buyers bid.'**
+  String get createListingTypeAuctionDesc;
+
+  /// No description provided for @createListingTypeFixed.
+  ///
+  /// In en, this message translates to:
+  /// **'Buy now'**
+  String get createListingTypeFixed;
+
+  /// No description provided for @createListingTypeFixedDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'One price. First buyer wins.'**
+  String get createListingTypeFixedDesc;
+
+  /// No description provided for @createListingTypeBazaar.
+  ///
+  /// In en, this message translates to:
+  /// **'Group bazaar'**
+  String get createListingTypeBazaar;
+
+  /// No description provided for @createListingTypeBazaarDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Under 10,000 IQD. Price drops as more buyers join.'**
+  String get createListingTypeBazaarDesc;
+
+  /// No description provided for @createListingAuctionLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Auction listings need Tier 2 verification.'**
+  String get createListingAuctionLocked;
+
+  /// No description provided for @createListingTier1Locked.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify your phone before listing.'**
+  String get createListingTier1Locked;
+
+  /// No description provided for @createListingPhotosTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add photos'**
+  String get createListingPhotosTitle;
+
+  /// No description provided for @createListingPhotosSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Three to five clear photos. We\'ll use them to draft your listing in four languages.'**
+  String get createListingPhotosSubtitle;
+
+  /// No description provided for @createListingPhotoFromCamera.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera'**
+  String get createListingPhotoFromCamera;
+
+  /// No description provided for @createListingPhotoFromGallery.
+  ///
+  /// In en, this message translates to:
+  /// **'Gallery'**
+  String get createListingPhotoFromGallery;
+
+  /// No description provided for @createListingPhotoMinError.
+  ///
+  /// In en, this message translates to:
+  /// **'Add at least three photos.'**
+  String get createListingPhotoMinError;
+
+  /// No description provided for @createListingPhotosUploading.
+  ///
+  /// In en, this message translates to:
+  /// **'Uploading…'**
+  String get createListingPhotosUploading;
+
+  /// No description provided for @createListingPhotosFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn\'t upload all photos. Try again.'**
+  String get createListingPhotosFailed;
+
+  /// No description provided for @createListingPhotosContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get createListingPhotosContinue;
+
+  /// No description provided for @createListingPhotosCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} of 10'**
+  String createListingPhotosCount(int count);
+
+  /// No description provided for @createListingAiTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'AI assistant'**
+  String get createListingAiTitle;
+
+  /// No description provided for @createListingAiSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'We\'ll read your photos and draft a four-language listing. You can edit it next.'**
+  String get createListingAiSubtitle;
+
+  /// No description provided for @createListingAiRun.
+  ///
+  /// In en, this message translates to:
+  /// **'Generate draft'**
+  String get createListingAiRun;
+
+  /// No description provided for @createListingAiRunning.
+  ///
+  /// In en, this message translates to:
+  /// **'Reading your photos…'**
+  String get createListingAiRunning;
+
+  /// No description provided for @createListingAiFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn\'t generate a draft. Fill in the fields manually.'**
+  String get createListingAiFailed;
+
+  /// No description provided for @createListingAiRedFlagsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Heads up'**
+  String get createListingAiRedFlagsTitle;
+
+  /// No description provided for @createListingAiSkip.
+  ///
+  /// In en, this message translates to:
+  /// **'Fill manually instead'**
+  String get createListingAiSkip;
+
+  /// No description provided for @createListingAiContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue to review'**
+  String get createListingAiContinue;
+
+  /// No description provided for @createListingReviewTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Review and publish'**
+  String get createListingReviewTitle;
+
+  /// No description provided for @createListingReviewSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Buyers see exactly what\'s here. Edit anything that\'s off.'**
+  String get createListingReviewSubtitle;
+
+  /// No description provided for @createListingFieldTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get createListingFieldTitle;
+
+  /// No description provided for @createListingFieldDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get createListingFieldDescription;
+
+  /// No description provided for @createListingFieldCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Category'**
+  String get createListingFieldCategory;
+
+  /// No description provided for @createListingFieldCondition.
+  ///
+  /// In en, this message translates to:
+  /// **'Condition'**
+  String get createListingFieldCondition;
+
+  /// No description provided for @createListingFieldStartingPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Starting price (IQD)'**
+  String get createListingFieldStartingPrice;
+
+  /// No description provided for @createListingFieldBuyNowPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Buy-now price (IQD)'**
+  String get createListingFieldBuyNowPrice;
+
+  /// No description provided for @createListingFieldReservePrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Reserve price (optional, IQD)'**
+  String get createListingFieldReservePrice;
+
+  /// No description provided for @createListingLocaleEn.
+  ///
+  /// In en, this message translates to:
+  /// **'EN'**
+  String get createListingLocaleEn;
+
+  /// No description provided for @createListingLocaleAr.
+  ///
+  /// In en, this message translates to:
+  /// **'AR'**
+  String get createListingLocaleAr;
+
+  /// No description provided for @createListingLocaleKu.
+  ///
+  /// In en, this message translates to:
+  /// **'KU'**
+  String get createListingLocaleKu;
+
+  /// No description provided for @createListingLocaleTr.
+  ///
+  /// In en, this message translates to:
+  /// **'TR'**
+  String get createListingLocaleTr;
+
+  /// No description provided for @createListingConditionNew.
+  ///
+  /// In en, this message translates to:
+  /// **'New'**
+  String get createListingConditionNew;
+
+  /// No description provided for @createListingConditionLikeNew.
+  ///
+  /// In en, this message translates to:
+  /// **'Like new'**
+  String get createListingConditionLikeNew;
+
+  /// No description provided for @createListingConditionGood.
+  ///
+  /// In en, this message translates to:
+  /// **'Good'**
+  String get createListingConditionGood;
+
+  /// No description provided for @createListingConditionFair.
+  ///
+  /// In en, this message translates to:
+  /// **'Fair'**
+  String get createListingConditionFair;
+
+  /// No description provided for @createListingConditionForParts.
+  ///
+  /// In en, this message translates to:
+  /// **'For parts'**
+  String get createListingConditionForParts;
+
+  /// No description provided for @createListingPublish.
+  ///
+  /// In en, this message translates to:
+  /// **'Publish listing'**
+  String get createListingPublish;
+
+  /// No description provided for @createListingPublishing.
+  ///
+  /// In en, this message translates to:
+  /// **'Publishing…'**
+  String get createListingPublishing;
+
+  /// No description provided for @createListingPublished.
+  ///
+  /// In en, this message translates to:
+  /// **'Your listing is live.'**
+  String get createListingPublished;
+
+  /// No description provided for @createListingPublishFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Publish failed: {reason}'**
+  String createListingPublishFailed(String reason);
+
+  /// No description provided for @createListingDiscard.
+  ///
+  /// In en, this message translates to:
+  /// **'Discard draft'**
+  String get createListingDiscard;
+
+  /// No description provided for @createListingMissingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Title is required in all four languages.'**
+  String get createListingMissingTitle;
+
+  /// No description provided for @createListingMissingDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Description is required in all four languages.'**
+  String get createListingMissingDescription;
+
+  /// No description provided for @createListingMissingCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a category.'**
+  String get createListingMissingCategory;
+
+  /// No description provided for @createListingMissingCondition.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a condition.'**
+  String get createListingMissingCondition;
+
+  /// No description provided for @createListingMissingStartingPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Set a starting price above zero.'**
+  String get createListingMissingStartingPrice;
+
+  /// No description provided for @createListingMissingBuyNowPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Set a buy-now price above zero.'**
+  String get createListingMissingBuyNowPrice;
+
+  /// No description provided for @createListingBazaarCap.
+  ///
+  /// In en, this message translates to:
+  /// **'Group Bazaar listings cap at 10,000 IQD.'**
+  String get createListingBazaarCap;
+
+  /// No description provided for @listingTypeAuction.
+  ///
+  /// In en, this message translates to:
+  /// **'Auction'**
+  String get listingTypeAuction;
+
+  /// No description provided for @listingTypeFixed.
+  ///
+  /// In en, this message translates to:
+  /// **'Buy now'**
+  String get listingTypeFixed;
+
+  /// No description provided for @listingTypeBazaar.
+  ///
+  /// In en, this message translates to:
+  /// **'Group Bazaar'**
+  String get listingTypeBazaar;
+
+  /// No description provided for @listingDetailVerifiedVideo.
+  ///
+  /// In en, this message translates to:
+  /// **'Verified video'**
+  String get listingDetailVerifiedVideo;
+
+  /// No description provided for @listingDetailStartingAt.
+  ///
+  /// In en, this message translates to:
+  /// **'Starting at'**
+  String get listingDetailStartingAt;
+
+  /// No description provided for @listingDetailCurrentHigh.
+  ///
+  /// In en, this message translates to:
+  /// **'Current high'**
+  String get listingDetailCurrentHigh;
+
+  /// No description provided for @listingDetailBuyNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Buy now'**
+  String get listingDetailBuyNow;
+
+  /// No description provided for @listingDetailBidUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Bidding opens in the next release.'**
+  String get listingDetailBidUnavailable;
+
+  /// No description provided for @listingDetailSellerLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Seller'**
+  String get listingDetailSellerLabel;
+
+  /// No description provided for @listingDetailViews.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} views'**
+  String listingDetailViews(int count);
+
+  /// No description provided for @listingDetailDraftBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Draft'**
+  String get listingDetailDraftBadge;
+
+  /// No description provided for @listingDetailCancelledBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancelled'**
+  String get listingDetailCancelledBadge;
+
+  /// No description provided for @listingDetailUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'This listing isn\'t available.'**
+  String get listingDetailUnavailable;
+
+  /// No description provided for @browseTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Browse'**
+  String get browseTitle;
+
+  /// No description provided for @browseSearchHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search listings'**
+  String get browseSearchHint;
+
+  /// No description provided for @browseEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No listings match.'**
+  String get browseEmpty;
+
+  /// No description provided for @browseFilterAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get browseFilterAll;
+
+  /// No description provided for @browseFilterAuction.
+  ///
+  /// In en, this message translates to:
+  /// **'Auctions'**
+  String get browseFilterAuction;
+
+  /// No description provided for @browseFilterFixed.
+  ///
+  /// In en, this message translates to:
+  /// **'Buy now'**
+  String get browseFilterFixed;
+
+  /// No description provided for @browseFilterBazaar.
+  ///
+  /// In en, this message translates to:
+  /// **'Bazaar'**
+  String get browseFilterBazaar;
+
+  /// No description provided for @browseResultsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Results'**
+  String get browseResultsTitle;
+
+  /// No description provided for @homeSectionEndingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Ending soon'**
+  String get homeSectionEndingSoon;
+
+  /// No description provided for @homeSectionHot.
+  ///
+  /// In en, this message translates to:
+  /// **'Hot'**
+  String get homeSectionHot;
+
+  /// No description provided for @homeSectionBazaar.
+  ///
+  /// In en, this message translates to:
+  /// **'Group Bazaar'**
+  String get homeSectionBazaar;
+
+  /// No description provided for @homeSectionCategories.
+  ///
+  /// In en, this message translates to:
+  /// **'Categories'**
+  String get homeSectionCategories;
+
+  /// No description provided for @homeSeeAll.
+  ///
+  /// In en, this message translates to:
+  /// **'See all'**
+  String get homeSeeAll;
+
+  /// No description provided for @homeFabSell.
+  ///
+  /// In en, this message translates to:
+  /// **'Sell'**
+  String get homeFabSell;
 }
 
 class _AppLocalizationsDelegate

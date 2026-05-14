@@ -101,6 +101,31 @@ Bucket policy summary (see `20260513000003_phase1_kyc_docs_bucket.sql`):
 - `service_role` bypasses RLS (admin reviewers).
 - `public = false` — no CDN URL pattern works.
 
+## Listing photos & analyze_item (Phase 2)
+
+Listing photos live in the public `listing-photos` bucket, under per-user
+prefixes (`<seller uuid>/<listing uuid>/...`). Reads use the standard
+Supabase public URL pattern.
+
+```
+{SUPABASE_URL}/storage/v1/object/public/listing-photos/<seller>/<listing>/<file>
+```
+
+Writes are RLS-gated to the path's owner. The bucket is **public-read on
+purpose** — browse / search pages need URLs that render without auth.
+Do NOT put PII or any seller-internal photos in this bucket.
+
+The `analyze_item` Edge Function (AI Listing Co-pilot) requires the
+`GEMINI_API_KEY` secret. Set with:
+
+```bash
+supabase secrets set GEMINI_API_KEY=...
+```
+
+If analyze_item returns `gemini_not_configured`, the secret is missing.
+If it returns `image_fetch_failed`, the seller's photos didn't upload
+correctly (check Storage logs; verify the path-prefix).
+
 ## To be expanded as we accumulate ops procedures
 
 - Bid integrity incident response

@@ -341,4 +341,262 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get commonGenericError => 'Bir hata oluştu. Lütfen tekrar deneyin.';
+
+  @override
+  String get createListingTitle => "Ürün listele";
+
+  @override
+  String get createListingChooseType => "Ne satıyorsunuz?";
+
+  @override
+  String get createListingTypeAuction => "Açık artırma";
+
+  @override
+  String get createListingTypeAuctionDesc => "Başlangıç fiyatı belirleyin, alıcılar teklif versin.";
+
+  @override
+  String get createListingTypeFixed => "Hemen al";
+
+  @override
+  String get createListingTypeFixedDesc => "Tek fiyat. İlk alıcı kazanır.";
+
+  @override
+  String get createListingTypeBazaar => "Grup pazarı";
+
+  @override
+  String get createListingTypeBazaarDesc => "10.000 IQD altında. Daha çok alıcı katıldıkça fiyat düşer.";
+
+  @override
+  String get createListingAuctionLocked => "Açık artırma için Seviye 2 doğrulama gerekir.";
+
+  @override
+  String get createListingTier1Locked => "Listelemeden önce telefonunuzu doğrulayın.";
+
+  @override
+  String get createListingPhotosTitle => "Fotoğraf ekle";
+
+  @override
+  String get createListingPhotosSubtitle => "Üç ile beş net fotoğraf. Bunları kullanarak ilanı dört dilde hazırlarız.";
+
+  @override
+  String get createListingPhotoFromCamera => "Kamera";
+
+  @override
+  String get createListingPhotoFromGallery => "Galeri";
+
+  @override
+  String get createListingPhotoMinError => "En az üç fotoğraf ekleyin.";
+
+  @override
+  String get createListingPhotosUploading => "Yükleniyor…";
+
+  @override
+  String get createListingPhotosFailed => "Bazı fotoğraflar yüklenemedi. Tekrar deneyin.";
+
+  @override
+  String get createListingPhotosContinue => "Devam et";
+
+  @override
+  String createListingPhotosCount(int count) {
+    return "$count / 10";
+  }
+
+  @override
+  String get createListingAiTitle => "Yapay zekâ asistanı";
+
+  @override
+  String get createListingAiSubtitle => "Fotoğraflarınızı okuyup dört dilli bir ilan taslağı oluştururuz. Sonra düzenleyebilirsiniz.";
+
+  @override
+  String get createListingAiRun => "Taslak oluştur";
+
+  @override
+  String get createListingAiRunning => "Fotoğraflarınız okunuyor…";
+
+  @override
+  String get createListingAiFailed => "Taslak oluşturamadık. Alanları elle doldurun.";
+
+  @override
+  String get createListingAiRedFlagsTitle => "Dikkat";
+
+  @override
+  String get createListingAiSkip => "Elle doldur";
+
+  @override
+  String get createListingAiContinue => "İncelemeye geç";
+
+  @override
+  String get createListingReviewTitle => "İncele ve yayınla";
+
+  @override
+  String get createListingReviewSubtitle => "Alıcılar tam olarak burada gördüğünüzü görür. Yanlış olan her şeyi düzenleyin.";
+
+  @override
+  String get createListingFieldTitle => "Başlık";
+
+  @override
+  String get createListingFieldDescription => "Açıklama";
+
+  @override
+  String get createListingFieldCategory => "Kategori";
+
+  @override
+  String get createListingFieldCondition => "Durum";
+
+  @override
+  String get createListingFieldStartingPrice => "Başlangıç fiyatı (IQD)";
+
+  @override
+  String get createListingFieldBuyNowPrice => "Hemen al fiyatı (IQD)";
+
+  @override
+  String get createListingFieldReservePrice => "Rezerv fiyatı (isteğe bağlı, IQD)";
+
+  @override
+  String get createListingLocaleEn => "EN";
+
+  @override
+  String get createListingLocaleAr => "AR";
+
+  @override
+  String get createListingLocaleKu => "KU";
+
+  @override
+  String get createListingLocaleTr => "TR";
+
+  @override
+  String get createListingConditionNew => "Sıfır";
+
+  @override
+  String get createListingConditionLikeNew => "Sıfır gibi";
+
+  @override
+  String get createListingConditionGood => "İyi";
+
+  @override
+  String get createListingConditionFair => "Orta";
+
+  @override
+  String get createListingConditionForParts => "Parçası için";
+
+  @override
+  String get createListingPublish => "İlanı yayınla";
+
+  @override
+  String get createListingPublishing => "Yayınlanıyor…";
+
+  @override
+  String get createListingPublished => "İlanınız yayında.";
+
+  @override
+  String createListingPublishFailed(String reason) {
+    return "Yayınlama başarısız: $reason";
+  }
+
+  @override
+  String get createListingDiscard => "Taslağı sil";
+
+  @override
+  String get createListingMissingTitle => "Başlık dört dilde de gerekli.";
+
+  @override
+  String get createListingMissingDescription => "Açıklama dört dilde de gerekli.";
+
+  @override
+  String get createListingMissingCategory => "Bir kategori seçin.";
+
+  @override
+  String get createListingMissingCondition => "Bir durum seçin.";
+
+  @override
+  String get createListingMissingStartingPrice => "Sıfırdan büyük bir başlangıç fiyatı belirleyin.";
+
+  @override
+  String get createListingMissingBuyNowPrice => "Sıfırdan büyük bir hemen al fiyatı belirleyin.";
+
+  @override
+  String get createListingBazaarCap => "Grup pazarı ilanları en fazla 10.000 IQD olur.";
+
+  @override
+  String get listingTypeAuction => "Açık artırma";
+
+  @override
+  String get listingTypeFixed => "Hemen al";
+
+  @override
+  String get listingTypeBazaar => "Grup pazarı";
+
+  @override
+  String get listingDetailVerifiedVideo => "Doğrulanmış video";
+
+  @override
+  String get listingDetailStartingAt => "Başlangıç";
+
+  @override
+  String get listingDetailCurrentHigh => "En yüksek teklif";
+
+  @override
+  String get listingDetailBuyNow => "Hemen al";
+
+  @override
+  String get listingDetailBidUnavailable => "Teklif verme bir sonraki sürümde açılır.";
+
+  @override
+  String get listingDetailSellerLabel => "Satıcı";
+
+  @override
+  String listingDetailViews(int count) {
+    return "$count görüntüleme";
+  }
+
+  @override
+  String get listingDetailDraftBadge => "Taslak";
+
+  @override
+  String get listingDetailCancelledBadge => "İptal edildi";
+
+  @override
+  String get listingDetailUnavailable => "Bu ilan kullanılamıyor.";
+
+  @override
+  String get browseTitle => "Keşfet";
+
+  @override
+  String get browseSearchHint => "İlanlarda ara";
+
+  @override
+  String get browseEmpty => "Eşleşen ilan yok.";
+
+  @override
+  String get browseFilterAll => "Tümü";
+
+  @override
+  String get browseFilterAuction => "Açık artırmalar";
+
+  @override
+  String get browseFilterFixed => "Hemen al";
+
+  @override
+  String get browseFilterBazaar => "Pazar";
+
+  @override
+  String get browseResultsTitle => "Sonuçlar";
+
+  @override
+  String get homeSectionEndingSoon => "Yakında bitiyor";
+
+  @override
+  String get homeSectionHot => "Popüler";
+
+  @override
+  String get homeSectionBazaar => "Grup pazarı";
+
+  @override
+  String get homeSectionCategories => "Kategoriler";
+
+  @override
+  String get homeSeeAll => "Tümünü gör";
+
+  @override
+  String get homeFabSell => "Sat";
 }
