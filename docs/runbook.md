@@ -161,3 +161,9 @@ These items must be resolved before any public launch, App Store submission, or 
 - **Required**: Bundle Inter and Vazirmatn as repo assets, ship in app bundle.
 - **Hard gate**: Soft — recommended before public launch but not blocking. Will improve first-launch experience for RTL users.
 - **Owner**: Engineering. Schedule in Phase 9 (polish).
+
+### 5. Force-update 426 CORS headers
+- **Status**: Deferred from Phase 2. `version_check.ts` returns 426 without CORS headers on the body.
+- **Required**: Add CORS headers to the 426 response so Flutter Web clients can read the body and render the force-update screen instead of a generic network error.
+- **Hard gate**: Before public web launch.
+- **Owner**: Engineering. ~30 min fix.
