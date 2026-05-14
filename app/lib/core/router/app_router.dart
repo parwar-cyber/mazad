@@ -15,15 +15,29 @@ import 'package:mazad/features/kyc/kyc_id_upload_screen.dart';
 import 'package:mazad/features/kyc/kyc_intro_screen.dart';
 import 'package:mazad/features/kyc/kyc_payout_screen.dart';
 import 'package:mazad/features/kyc/kyc_review_screen.dart';
+import 'package:mazad/features/listings/browse/browse_screen.dart';
+import 'package:mazad/features/listings/create/listing_ai_screen.dart';
+import 'package:mazad/features/listings/create/listing_photos_screen.dart';
+import 'package:mazad/features/listings/create/listing_review_screen.dart';
+import 'package:mazad/features/listings/create/listing_type_screen.dart';
+import 'package:mazad/features/listings/detail/listing_detail_screen.dart';
 import 'package:mazad/features/system/force_update_notifier.dart';
 import 'package:mazad/features/system/force_update_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 /// Routes that don't require an authenticated session.
-const _publicRoutes = {'/', '/auth', '/auth/otp', '/force-update'};
+const _publicRoutes = {'/', '/auth', '/auth/otp', '/force-update', '/browse'};
+
+/// Path prefixes (in addition to [_publicRoutes]) that are public.
+bool _isPublic(String loc) {
+  if (_publicRoutes.contains(loc)) return true;
+  if (loc.startsWith('/browse')) return true;
+  if (loc.startsWith('/listings/')) return true;
+  return false;
+}
 
 /// Routes that require a complete profile (display_name set).
-const _profileGatedRoutes = {'/dashboard', '/kyc'};
+const _profileGatedRoutes = {'/dashboard', '/kyc', '/sell'};
 
 final appRouterProvider = Provider<GoRouter>((ref) {
   // Re-evaluate redirects whenever auth state changes.  Riverpod's
@@ -52,7 +66,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
 
       // Signed-out users can only see public routes.
       if (user == null) {
-        return _publicRoutes.contains(loc) ? null : '/';
+        return _isPublic(loc) ? null : '/';
       }
 
       // Signed-in users hitting the auth screens get bounced to dashboard.
@@ -101,6 +115,39 @@ final appRouterProvider = Provider<GoRouter>((ref) {
               path: 'payout', builder: (_, __) => const KycPayoutScreen()),
           GoRoute(
               path: 'review', builder: (_, __) => const KycReviewScreen()),
+        ],
+      ),
+      GoRoute(
+        path: '/browse',
+        builder: (_, state) {
+          final params = state.uri.queryParameters;
+          return BrowseScreen(
+            initialCategoryId: params['category'],
+            initialType: params['type'],
+          );
+        },
+      ),
+      GoRoute(
+        path: '/listings/:id',
+        builder: (_, state) =>
+            ListingDetailScreen(id: state.pathParameters['id'] ?? ''),
+      ),
+      GoRoute(
+        path: '/sell',
+        builder: (_, __) => const ListingTypeScreen(),
+        routes: [
+          GoRoute(
+            path: 'photos',
+            builder: (_, __) => const ListingPhotosScreen(),
+          ),
+          GoRoute(
+            path: 'ai',
+            builder: (_, __) => const ListingAiScreen(),
+          ),
+          GoRoute(
+            path: 'review',
+            builder: (_, __) => const ListingReviewScreen(),
+          ),
         ],
       ),
       GoRoute(

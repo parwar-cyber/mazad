@@ -221,6 +221,103 @@ break downstream regex consumers (notification templates, deep links).
 
 ---
 
+## ADR-0010: Listing tier gating — Tier 1 for fixed/bazaar, Tier 2 for auction (Phase 2)
+
+**Date**: 2026-05-14
+**Status**: Accepted
+
+**Context**: CLAUDE.md and architecture.md §2 describe three KYC tiers but
+don't pin down the per-listing-type gate. Phase 2 needs an explicit rule:
+who is allowed to create which listing type?
+
+**Decision**:
+- Tier 0 (browse only): cannot create any listing.
+- Tier 1 (verified buyer, phone-OTP): may create `fixed` and `bazaar`
+  drafts and publish them.
+- Tier 2 (full KYC, ID + payout): all three types — adds `auction`.
+
+Enforced in `create_listing_draft` and re-enforced in `publish_listing`
+(in case the seller's tier was downgraded between draft and publish).
+
+**Why**:
+- Fixed-price and bazaar listings carry less fraud surface than auctions —
+  no proxy bidding, no time-pressure manipulation, no shill bid risk. A
+  phone-verified user is allowed to test the seller path with a small
+  buy-now item before committing to full KYC for high-value auctions.
+- The hard money invariant (escrow holding buyer funds until delivery,
+  Phase 7) still applies — sellers never touch funds before review.
+- Aligns with "anyone with a verified phone can browse and bid up to
+  100k IQD" (Tier 1 ceiling per ADR-0008 / migration 20260513000001).
+
+**Consequences**:
+- The listing-type picker disables `auction` for Tier 1 users with an
+  inline hint to upgrade. The server still defends with the named
+  `kyc_tier_2_required` error.
+- Tier 1 fixed/bazaar listings cap at the buyer-side Tier 1 ceiling
+  through transaction limits in Phase 7 — not enforced at listing time.
+
+---
+
+## ADR-0011: AI Listing Co-pilot — server-only image fetch (Phase 2)
+
+**Date**: 2026-05-14
+**Status**: Accepted
+
+**Context**: The AI Co-pilot needs to feed seller photos to Gemini Vision.
+Two integration paths:
+
+(a) Client posts public image URLs to the Edge Function; the function
+    forwards them to Gemini directly via `file_data` references.
+(b) Client posts only the `listing_id`; the Edge Function reads the
+    listing row, validates each path begins with `<seller>/<listing_id>/`,
+    constructs the public Supabase storage URL, fetches each image
+    server-side, and sends them to Gemini as `inline_data`.
+
+**Decision**: Option (b).
+
+**Why (vibesec skill)**:
+- The function is now incapable of being weaponized as an SSRF probe.
+  Even if the client lies about which paths are on the listing, the
+  server reads the truth from the DB row and re-checks the prefix.
+- The 4-locale validation runs server-side over a known-shape response.
+  No locale gap can slip through to the client.
+- Gemini never sees a URL that isn't inside our own bucket, under the
+  seller's own folder — so a future change that adds private listings
+  doesn't accidentally surface their photos to a third-party fetcher.
+
+**Trade-offs**:
+- Higher Edge Function memory pressure (we base64 each image once).
+  Mitigated by the 5-image cap and the 4 MB per-photo client cap (8 MB
+  hard cap on the server side).
+- One extra DB hit per analyze call. Acceptable — analyze is a low-rate,
+  high-value operation.
+
+---
+
+## ADR-0012: Sell-flow KYC gate — listing creation, NOT KYC upgrade (Phase 2)
+
+**Date**: 2026-05-14
+**Status**: Accepted
+
+**Context**: The "My Mazad" dashboard had a "Start selling" CTA in Phase 1
+that routed Tier-0 users into `/kyc`. With Phase 2, a Tier-1 user can list
+buy-now items — they don't need Tier 2 to start selling at all.
+
+**Decision**:
+- Dashboard "Listings" tab for Tier 1+ shows the user's listings plus a
+  primary "Sell" FAB that goes to `/sell` (the listing-type picker).
+- The `/kyc` flow remains the path for upgrading to Tier 2 — the listing
+  type picker surfaces a locked auction card with a hint to upgrade, not
+  an automatic redirect.
+
+**Why**: A locked CTA with an explanation beats a silent redirect. Users
+who want to list a buy-now item shouldn't be forced through ID-document
+upload they don't need.
+
+**Cross-reference**: ADR-0010 (tier gating) is the policy this UX encodes.
+
+---
+
 ## Open refactor TODOs
 
 - Bundle Inter + Vazirmatn as repo assets instead of `google_fonts` runtime fetch — improves cold-start, removes external dependency at boot. Phase 9 polish task.

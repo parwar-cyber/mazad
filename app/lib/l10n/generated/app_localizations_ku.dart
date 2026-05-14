@@ -339,4 +339,276 @@ class AppLocalizationsKu extends AppLocalizations {
 
   @override
   String get commonGenericError => 'هەڵەیەک ڕوویدا. تکایە دووبارە هەوڵ بدە.';
+
+  @override
+  String get createListingTitle => 'تۆمارکردنی کاڵا';
+
+  @override
+  String get createListingChooseType => 'چی دەفرۆشیت؟';
+
+  @override
+  String get createListingTypeAuction => 'مەزاد';
+
+  @override
+  String get createListingTypeAuctionDesc =>
+      'نرخی دەستپێک دیاری بکە و کڕیاران مەزایەدە بکەن.';
+
+  @override
+  String get createListingTypeFixed => 'ئێستا بکڕە';
+
+  @override
+  String get createListingTypeFixedDesc => 'یەک نرخ. یەکەم کڕیار براوەیە.';
+
+  @override
+  String get createListingTypeBazaar => 'بازاڕی گروپی';
+
+  @override
+  String get createListingTypeBazaarDesc =>
+      'کەمتر لە ١٠٬٠٠٠ دینار. نرخ دادەبەزێت کاتێک کڕیاری زیاتر بەشدار دەبێت.';
+
+  @override
+  String get createListingAuctionLocked =>
+      'ڕیکلامی مەزاد پێویستی بە پشتڕاستکردنەوەی ئاستی ٢ هەیە.';
+
+  @override
+  String get createListingTier1Locked =>
+      'پێش تۆمارکردن مۆبایلت پشتڕاست بکەرەوە.';
+
+  @override
+  String get createListingPhotosTitle => 'وێنە زیاد بکە';
+
+  @override
+  String get createListingPhotosSubtitle =>
+      'سێ بۆ پێنج وێنەی ڕوون. بەکاریان دەهێنین بۆ نووسینی ڕیکلامەکەت بە چوار زمان.';
+
+  @override
+  String get createListingPhotoFromCamera => 'کامێرا';
+
+  @override
+  String get createListingPhotoFromGallery => 'گاڵەری';
+
+  @override
+  String get createListingPhotoMinError => 'کەمترین سێ وێنە زیاد بکە.';
+
+  @override
+  String get createListingPhotosUploading => 'بارکردن…';
+
+  @override
+  String get createListingPhotosFailed =>
+      'نەمانتوانی هەندێک وێنە بار بکەین. دووبارە هەوڵ بدە.';
+
+  @override
+  String get createListingPhotosContinue => 'بەردەوام بە';
+
+  @override
+  String createListingPhotosCount(int count) {
+    return '$count لە ١٠';
+  }
+
+  @override
+  String get createListingAiTitle => 'یاریدەدەری زیرەک';
+
+  @override
+  String get createListingAiSubtitle =>
+      'وێنەکانت دەخوێنینەوە و ڕیکلامێک بە چوار زمان دەنووسین. دواتر دەتوانیت دەستکاری بکەیت.';
+
+  @override
+  String get createListingAiRun => 'نووسینی ڕەشنووس';
+
+  @override
+  String get createListingAiRunning => 'وێنەکانت دەخوێنینەوە…';
+
+  @override
+  String get createListingAiFailed =>
+      'نەمانتوانی ڕەشنووس دروست بکەین. خۆت خانەکان پڕ بکەرەوە.';
+
+  @override
+  String get createListingAiRedFlagsTitle => 'ئاگاداربە';
+
+  @override
+  String get createListingAiSkip => 'بەدەستی پڕی بکەرەوە';
+
+  @override
+  String get createListingAiContinue => 'بەردەوام بە بۆ پێداچوونەوە';
+
+  @override
+  String get createListingReviewTitle => 'پێداچوونەوە و بڵاوکردنەوە';
+
+  @override
+  String get createListingReviewSubtitle =>
+      'کڕیاران بەو شێوەیە دەیبینن. هەرشتێک ناڕاست بوو دەستکاری بکە.';
+
+  @override
+  String get createListingFieldTitle => 'ناونیشان';
+
+  @override
+  String get createListingFieldDescription => 'وەسف';
+
+  @override
+  String get createListingFieldCategory => 'پۆل';
+
+  @override
+  String get createListingFieldCondition => 'حاڵەت';
+
+  @override
+  String get createListingFieldStartingPrice => 'نرخی دەستپێک (د.ع)';
+
+  @override
+  String get createListingFieldBuyNowPrice => 'نرخی کڕینی فۆری (د.ع)';
+
+  @override
+  String get createListingFieldReservePrice =>
+      'نرخی هاوبەشی (ئارەزوومەندانە، د.ع)';
+
+  @override
+  String get createListingLocaleEn => 'EN';
+
+  @override
+  String get createListingLocaleAr => 'AR';
+
+  @override
+  String get createListingLocaleKu => 'KU';
+
+  @override
+  String get createListingLocaleTr => 'TR';
+
+  @override
+  String get createListingConditionNew => 'نوێ';
+
+  @override
+  String get createListingConditionLikeNew => 'وەکوو نوێ';
+
+  @override
+  String get createListingConditionGood => 'باش';
+
+  @override
+  String get createListingConditionFair => 'ناوەند';
+
+  @override
+  String get createListingConditionForParts => 'بۆ پارچەکان';
+
+  @override
+  String get createListingPublish => 'بڵاوکردنەوەی ڕیکلام';
+
+  @override
+  String get createListingPublishing => 'بڵاوکردنەوە…';
+
+  @override
+  String get createListingPublished => 'ڕیکلامەکەت بڵاوکرایەوە.';
+
+  @override
+  String createListingPublishFailed(String reason) {
+    return 'بڵاوکردنەوە سەرکەوتوو نەبوو: $reason';
+  }
+
+  @override
+  String get createListingDiscard => 'ڕەشنووس فڕێبدە';
+
+  @override
+  String get createListingMissingTitle => 'ناونیشان بە هەر چوار زمان پێویستە.';
+
+  @override
+  String get createListingMissingDescription =>
+      'وەسف بە هەر چوار زمان پێویستە.';
+
+  @override
+  String get createListingMissingCategory => 'پۆلێک هەڵبژێرە.';
+
+  @override
+  String get createListingMissingCondition => 'حاڵەتێک هەڵبژێرە.';
+
+  @override
+  String get createListingMissingStartingPrice =>
+      'نرخی دەستپێک گەورەتر لە سفر دیاری بکە.';
+
+  @override
+  String get createListingMissingBuyNowPrice =>
+      'نرخی کڕینی فۆری گەورەتر لە سفر دیاری بکە.';
+
+  @override
+  String get createListingBazaarCap => 'بازاڕی گروپی سنووری ١٠٬٠٠٠ دینارە.';
+
+  @override
+  String get listingTypeAuction => 'مەزاد';
+
+  @override
+  String get listingTypeFixed => 'ئێستا بکڕە';
+
+  @override
+  String get listingTypeBazaar => 'بازاڕی گروپی';
+
+  @override
+  String get listingDetailVerifiedVideo => 'ڤیدیۆی پشتڕاستکراو';
+
+  @override
+  String get listingDetailStartingAt => 'دەستپێک لە';
+
+  @override
+  String get listingDetailCurrentHigh => 'بەرزترین مەزایەدە';
+
+  @override
+  String get listingDetailBuyNow => 'ئێستا بکڕە';
+
+  @override
+  String get listingDetailBidUnavailable =>
+      'مەزایەدە لە وەشانی داهاتوو دەکرێتەوە.';
+
+  @override
+  String get listingDetailSellerLabel => 'فرۆشیار';
+
+  @override
+  String listingDetailViews(int count) {
+    return '$count بینین';
+  }
+
+  @override
+  String get listingDetailDraftBadge => 'ڕەشنووس';
+
+  @override
+  String get listingDetailCancelledBadge => 'هەڵوەشێنراوەتەوە';
+
+  @override
+  String get listingDetailUnavailable => 'ئەم ڕیکلامە بەردەست نییە.';
+
+  @override
+  String get browseTitle => 'بگەڕێ';
+
+  @override
+  String get browseSearchHint => 'گەڕان لە ڕیکلامەکان';
+
+  @override
+  String get browseEmpty => 'هیچ ڕیکلامێک هاوتا نییە.';
+
+  @override
+  String get browseFilterAll => 'هەموو';
+
+  @override
+  String get browseFilterAuction => 'مەزادەکان';
+
+  @override
+  String get browseFilterFixed => 'ئێستا بکڕە';
+
+  @override
+  String get browseFilterBazaar => 'بازاڕ';
+
+  @override
+  String get browseResultsTitle => 'ئەنجامەکان';
+
+  @override
+  String get homeSectionEndingSoon => 'بەم زووانە کۆتایی دێت';
+
+  @override
+  String get homeSectionHot => 'گەرم';
+
+  @override
+  String get homeSectionBazaar => 'بازاڕی گروپی';
+
+  @override
+  String get homeSectionCategories => 'پۆلەکان';
+
+  @override
+  String get homeSeeAll => 'هەمووی ببینە';
+
+  @override
+  String get homeFabSell => 'بفرۆشە';
 }

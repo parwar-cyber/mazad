@@ -6,6 +6,7 @@ import 'package:mazad/core/money/money_format.dart';
 import 'package:mazad/features/auth/data/auth_providers.dart';
 import 'package:mazad/features/auth/data/auth_service.dart';
 import 'package:mazad/features/auth/data/profile.dart';
+import 'package:mazad/features/listings/dashboard/my_listings_panel.dart';
 import 'package:mazad/l10n/generated/app_localizations.dart';
 
 /// "My Mazad" dashboard skeleton — see architecture.md §3.
@@ -41,9 +42,11 @@ class MyMazadScreen extends ConsumerWidget {
         icon: Icons.sell_outlined,
         label: l10n.dashboardTabListings,
         body: profileAsync.when(
-          data: (p) => p != null && p.isSeller
-              ? _Placeholder(message: l10n.dashboardEmptyListings)
-              : const _StartSellingCta(),
+          data: (p) => p == null
+              ? const _LoadingTab()
+              : (p.kycTier >= 1
+                  ? const MyListingsPanel()
+                  : const _StartSellingCta()),
           loading: () => const _LoadingTab(),
           error: (_, __) => _Placeholder(message: l10n.commonGenericError),
         ),
