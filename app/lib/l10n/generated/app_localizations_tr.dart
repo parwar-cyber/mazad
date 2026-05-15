@@ -571,7 +571,109 @@ class AppLocalizationsTr extends AppLocalizations {
   String get listingDetailCancelledBadge => 'İptal edildi';
 
   @override
+  String get listingDetailSoldBadge => 'Satıldı';
+
+  @override
+  String get listingDetailExpiredBadge => 'Sona erdi';
+
+  @override
   String get listingDetailUnavailable => 'Bu ilan kullanılamıyor.';
+
+  @override
+  String biddingBidCount(int count) {
+    return '$count teklif';
+  }
+
+  @override
+  String get biddingCountdownDiscoveryLabel => 'Keşif süresi bitiyor';
+
+  @override
+  String get biddingCountdownSmartCloseLabel =>
+      'Akıllı kapanış: son tekliften 12 saat sonra biter';
+
+  @override
+  String get biddingCountdownClosed => 'Açık artırma kapandı';
+
+  @override
+  String get biddingConsoleMinNext => 'En düşük yeni teklif';
+
+  @override
+  String get biddingConsoleSetMax => 'Maksimum teklif belirle';
+
+  @override
+  String get biddingConsoleSellerCantBid =>
+      'Kendi ilanınıza teklif veremezsiniz.';
+
+  @override
+  String get biddingConsoleTier1Required =>
+      'Teklif vermeye başlamak için telefonunuzu doğrulayın.';
+
+  @override
+  String get biddingMaxSheetTitle => 'Maksimum teklifinizi belirleyin';
+
+  @override
+  String get biddingMaxSheetSubtitle =>
+      'Bu tutara kadar sizin için adım adım otomatik teklif veririz.';
+
+  @override
+  String get biddingMaxSheetLabel => 'Maksimum teklif (IQD)';
+
+  @override
+  String get biddingMaxSheetConfirm => 'Onayla';
+
+  @override
+  String get biddingPlaced => 'Teklif verildi.';
+
+  @override
+  String get biddingErrorSelfBid => 'Kendi ilanınıza teklif veremezsiniz.';
+
+  @override
+  String get biddingErrorTooLow =>
+      'Teklif minimum artıştan düşük. Önerilen tutarı deneyin.';
+
+  @override
+  String get biddingErrorRateLimited =>
+      'Yavaşlayın — son bir dakikada çok teklif gönderdiniz.';
+
+  @override
+  String get biddingErrorClosed => 'Bu açık artırma az önce kapandı.';
+
+  @override
+  String get biddingErrorTier1 =>
+      'Teklif vermeye başlamak için telefonunuzu doğrulayın.';
+
+  @override
+  String get biddingErrorTierCeiling =>
+      'Bu tutar seviye limitinizin üzerinde. Daha yüksek teklif için KYC\'yi yükseltin.';
+
+  @override
+  String get biddingErrorSellerUnreviewed =>
+      'Bu satıcı yönetici incelemesinde. Teklif verme yakında açılır.';
+
+  @override
+  String get biddingErrorNotActive => 'Bu ilan teklife açık değil.';
+
+  @override
+  String get biddingErrorGeneric => 'Teklif kaydedilemedi. Tekrar deneyin.';
+
+  @override
+  String get biddingFeedTitle => 'Canlı teklifler';
+
+  @override
+  String get biddingFeedEmpty => 'İlk teklifi siz verin.';
+
+  @override
+  String get biddingFeedJustNow => 'az önce';
+
+  @override
+  String biddingFeedMinutesAgo(int m) {
+    return '$m dk önce';
+  }
+
+  @override
+  String biddingFeedHoursAgo(int h) {
+    return '$h sa önce';
+  }
 
   @override
   String get browseTitle => 'Keşfet';

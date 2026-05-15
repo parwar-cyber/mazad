@@ -567,7 +567,108 @@ class AppLocalizationsEn extends AppLocalizations {
   String get listingDetailCancelledBadge => 'Cancelled';
 
   @override
+  String get listingDetailSoldBadge => 'Sold';
+
+  @override
+  String get listingDetailExpiredBadge => 'Ended';
+
+  @override
   String get listingDetailUnavailable => 'This listing isn\'t available.';
+
+  @override
+  String biddingBidCount(int count) {
+    return '$count bids';
+  }
+
+  @override
+  String get biddingCountdownDiscoveryLabel => 'Discovery ends in';
+
+  @override
+  String get biddingCountdownSmartCloseLabel =>
+      'Smart Close: ends 12h after last bid';
+
+  @override
+  String get biddingCountdownClosed => 'Auction closed';
+
+  @override
+  String get biddingConsoleMinNext => 'Min next bid';
+
+  @override
+  String get biddingConsoleSetMax => 'Set a max bid';
+
+  @override
+  String get biddingConsoleSellerCantBid =>
+      'You can\'t bid on your own listing.';
+
+  @override
+  String get biddingConsoleTier1Required =>
+      'Verify your phone to start bidding.';
+
+  @override
+  String get biddingMaxSheetTitle => 'Set your max bid';
+
+  @override
+  String get biddingMaxSheetSubtitle =>
+      'We\'ll auto-bid for you up to this amount, one minimum increment at a time.';
+
+  @override
+  String get biddingMaxSheetLabel => 'Max bid (IQD)';
+
+  @override
+  String get biddingMaxSheetConfirm => 'Confirm';
+
+  @override
+  String get biddingPlaced => 'Bid placed.';
+
+  @override
+  String get biddingErrorSelfBid => 'You can\'t bid on your own listing.';
+
+  @override
+  String get biddingErrorTooLow =>
+      'Bid below the minimum increment. Try the suggested amount.';
+
+  @override
+  String get biddingErrorRateLimited =>
+      'Slow down — you\'ve placed too many bids in the last minute.';
+
+  @override
+  String get biddingErrorClosed => 'This auction just closed.';
+
+  @override
+  String get biddingErrorTier1 => 'Verify your phone to start bidding.';
+
+  @override
+  String get biddingErrorTierCeiling =>
+      'This amount exceeds your tier limit. Upgrade KYC to bid higher.';
+
+  @override
+  String get biddingErrorSellerUnreviewed =>
+      'This seller is pending admin review. Bidding will open soon.';
+
+  @override
+  String get biddingErrorNotActive => 'This listing isn\'t open for bidding.';
+
+  @override
+  String get biddingErrorGeneric => 'We couldn\'t place the bid. Try again.';
+
+  @override
+  String get biddingFeedTitle => 'Live bids';
+
+  @override
+  String get biddingFeedEmpty => 'Be the first to bid.';
+
+  @override
+  String get biddingFeedJustNow => 'just now';
+
+  @override
+  String biddingFeedMinutesAgo(int m) {
+    return '${m}m ago';
+  }
+
+  @override
+  String biddingFeedHoursAgo(int h) {
+    return '${h}h ago';
+  }
 
   @override
   String get browseTitle => 'Browse';

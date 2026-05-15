@@ -3,15 +3,20 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mazad/core/design/tokens.dart';
 import 'package:mazad/core/design/typography.dart';
 import 'package:mazad/core/money/money_format.dart';
+import 'package:mazad/features/bidding/data/bidding_providers.dart';
+import 'package:mazad/features/bidding/widgets/bid_console.dart';
+import 'package:mazad/features/bidding/widgets/bid_countdown.dart';
+import 'package:mazad/features/bidding/widgets/bid_feed.dart';
 import 'package:mazad/features/listings/data/listing.dart';
 import 'package:mazad/features/listings/data/listing_providers.dart';
 import 'package:mazad/features/listings/data/listing_repository.dart';
 import 'package:mazad/features/listings/data/locale_text.dart';
 import 'package:mazad/l10n/generated/app_localizations.dart';
 
-/// Read-only listing detail.  Bidding controls land in Phase 3 — this
-/// screen renders the listing and surfaces a disabled "bidding opens later"
-/// hint so reviewers can see the full flow at Phase 2 acceptance.
+/// Listing detail with realtime bid console + feed + countdown.  The
+/// realtime listing stream (`listingRealtimeProvider`) drives every
+/// numeric on this screen so a competing bid lands without a refresh.
+/// See architecture.md §6.1 / §6.2.
 class ListingDetailScreen extends ConsumerWidget {
   const ListingDetailScreen({super.key, required this.id});
   final String id;
@@ -20,23 +25,31 @@ class ListingDetailScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
-    final async = ref.watch(listingByIdProvider(id));
+    // The async one-shot fetch seeds the screen.  The realtime stream then
+    // pushes updates on every UPDATE event.  We prefer the realtime row
+    // whenever available.
+    final initial = ref.watch(listingByIdProvider(id));
+    final live = ref.watch(listingRealtimeProvider(id));
+    final listing = live.value ?? initial.value;
 
+    if (initial.isLoading && listing == null) {
+      return Scaffold(
+        appBar: AppBar(),
+        body: const Center(child: CircularProgressIndicator()),
+      );
+    }
+    if (listing == null) {
+      return Scaffold(
+        appBar: AppBar(),
+        body: Center(
+          child: Text(l10n.listingDetailUnavailable,
+              style: theme.textTheme.bodyLarge),
+        ),
+      );
+    }
     return Scaffold(
       appBar: AppBar(),
-      body: async.when(
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (_, __) => Center(child: Text(l10n.commonGenericError)),
-        data: (listing) {
-          if (listing == null) {
-            return Center(
-              child: Text(l10n.listingDetailUnavailable,
-                  style: theme.textTheme.bodyLarge),
-            );
-          }
-          return _Body(listing: listing);
-        },
-      ),
+      body: _Body(listing: listing),
     );
   }
 }
@@ -56,9 +69,10 @@ class _Body extends ConsumerWidget {
     final title = localizedUgc(listing.titleTranslations, lang);
     final description = localizedUgc(listing.descriptionTranslations, lang);
     final urls = listing.images.map(repo.publicUrlFor).toList(growable: false);
+    final canBid = listing.status == 'active' && listing.type != 'fixed';
 
     return ListView(
-      padding: const EdgeInsetsDirectional.only(bottom: MazadTokens.sp6),
+      padding: const EdgeInsetsDirectional.only(bottom: MazadTokens.sp7),
       children: [
         _Gallery(urls: urls, verified: listing.videoVerified),
         Padding(
@@ -71,7 +85,7 @@ class _Body extends ConsumerWidget {
               const SizedBox(height: MazadTokens.sp2),
               Text(title, style: theme.textTheme.headlineSmall),
               const SizedBox(height: MazadTokens.sp3),
-              _PriceBlock(listing: listing),
+              _PriceAndTimerRow(listing: listing),
               const SizedBox(height: MazadTokens.sp4),
               Row(
                 children: [
@@ -83,30 +97,30 @@ class _Body extends ConsumerWidget {
                     style: theme.textTheme.bodySmall
                         ?.copyWith(color: MazadTokens.onSurfaceMuted),
                   ),
+                  const SizedBox(width: MazadTokens.sp4),
+                  Icon(Icons.gavel_outlined,
+                      size: 14, color: MazadTokens.onSurfaceMuted),
+                  const SizedBox(width: MazadTokens.sp1),
+                  Text(
+                    l10n.biddingBidCount(listing.bidCount),
+                    style: theme.textTheme.bodySmall
+                        ?.copyWith(color: MazadTokens.onSurfaceMuted),
+                  ),
                 ],
               ),
               const SizedBox(height: MazadTokens.sp5),
               if (description.isNotEmpty)
                 Text(description, style: theme.textTheme.bodyLarge),
               const SizedBox(height: MazadTokens.sp5),
-              // Bidding actions are scoped to Phase 3.  The button is
-              // intentionally disabled here so Phase 2 acceptance can show
-              // a complete detail screen end-to-end.
-              FilledButton(
-                onPressed: null,
-                child: Text(
-                  switch (listing.type) {
-                    'fixed' => l10n.listingDetailBuyNow,
-                    _ => l10n.listingDetailBidUnavailable,
-                  },
+              if (canBid) BidConsole(listing: listing),
+              if (listing.type == 'fixed')
+                FilledButton(
+                  // Buy-now flow lands in Phase 7.
+                  onPressed: null,
+                  child: Text(l10n.listingDetailBuyNow),
                 ),
-              ),
-              const SizedBox(height: MazadTokens.sp2),
-              Text(
-                l10n.listingDetailBidUnavailable,
-                style: theme.textTheme.bodySmall
-                    ?.copyWith(color: MazadTokens.onSurfaceMuted),
-              ),
+              const SizedBox(height: MazadTokens.sp6),
+              if (canBid) BidFeed(listingId: listing.id),
             ],
           ),
         ),
@@ -115,8 +129,8 @@ class _Body extends ConsumerWidget {
   }
 }
 
-class _PriceBlock extends StatelessWidget {
-  const _PriceBlock({required this.listing});
+class _PriceAndTimerRow extends StatelessWidget {
+  const _PriceAndTimerRow({required this.listing});
   final Listing listing;
 
   @override
@@ -124,23 +138,38 @@ class _PriceBlock extends StatelessWidget {
     final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
     final locale = Localizations.localeOf(context);
-    final priceLabel = switch (listing.type) {
-      'fixed' => l10n.listingDetailBuyNow,
-      _ when listing.currentHigh != null => l10n.listingDetailCurrentHigh,
-      _ => l10n.listingDetailStartingAt,
-    };
-    return Column(
+    final showTimer = listing.type != 'fixed' && listing.currentCloseAt != null;
+    return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(priceLabel,
-            style: theme.textTheme.bodySmall
-                ?.copyWith(color: MazadTokens.onSurfaceMuted)),
-        const SizedBox(height: MazadTokens.sp1),
-        Text(
-          formatIQD(listing.displayPrice, locale),
-          style: tabularNumeric(theme.textTheme.headlineMedium!)
-              .copyWith(color: MazadTokens.primary),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                listing.type == 'fixed'
+                    ? l10n.listingDetailBuyNow
+                    : (listing.currentHigh != null
+                        ? l10n.listingDetailCurrentHigh
+                        : l10n.listingDetailStartingAt),
+                style: theme.textTheme.bodySmall
+                    ?.copyWith(color: MazadTokens.onSurfaceMuted),
+              ),
+              const SizedBox(height: MazadTokens.sp1),
+              Text(
+                formatIQD(listing.displayPrice, locale),
+                style: tabularNumeric(theme.textTheme.headlineMedium!)
+                    .copyWith(color: MazadTokens.primary),
+              ),
+            ],
+          ),
         ),
+        if (showTimer)
+          BidCountdown(
+            currentCloseAt: listing.currentCloseAt!,
+            discoveryEndsAt: listing.discoveryEndsAt,
+            hardCloseAt: listing.hardCloseAt,
+          ),
       ],
     );
   }
@@ -211,8 +240,7 @@ class _GalleryState extends State<_Gallery> {
                   ),
                   decoration: BoxDecoration(
                     color: Colors.black.withValues(alpha: 0.5),
-                    borderRadius:
-                        BorderRadius.circular(MazadTokens.radiusPill),
+                    borderRadius: BorderRadius.circular(MazadTokens.radiusPill),
                   ),
                   child: Text(
                     '${_index + 1} / ${widget.urls.length}',
@@ -240,6 +268,8 @@ class _StatusBadge extends StatelessWidget {
     final label = switch (status) {
       'draft' => l10n.listingDetailDraftBadge,
       'cancelled' => l10n.listingDetailCancelledBadge,
+      'sold' => l10n.listingDetailSoldBadge,
+      'expired' => l10n.listingDetailExpiredBadge,
       _ => status,
     };
     return Container(

@@ -126,9 +126,82 @@ If analyze_item returns `gemini_not_configured`, the secret is missing.
 If it returns `image_fetch_failed`, the seller's photos didn't upload
 correctly (check Storage logs; verify the path-prefix).
 
+## Bidding (Phase 3)
+
+### Close sweep — pg_cron, with Edge Function fallback
+
+The primary scheduler is `cron.schedule('mazad_close_listings_sweep',
+'* * * * *', ...)` registered by migration
+`20260514100001_phase3_bidding_engine.sql`. Verify it's running:
+
+```sql
+select jobname, schedule, command
+  from cron.job
+ where jobname = 'mazad_close_listings_sweep';
+```
+
+If `pg_cron` isn't available in a managed Supabase environment, the
+`close_listing_sweep` Edge Function is the fallback. Trigger it from an
+external scheduler (e.g. GitHub Actions, Cloud Scheduler) every minute:
+
+```bash
+curl -X POST \
+  -H "X-Admin-Trigger-Token: $ADMIN_TRIGGER_TOKEN" \
+  -H "App-Version: 1.0.0" -H "App-Platform: web" \
+  https://<project>.supabase.co/functions/v1/close_listing_sweep
+```
+
+Set `ADMIN_TRIGGER_TOKEN` as an Edge Function secret. **Do not commit
+this token.**
+
+### Bid integrity incident response
+
+If a user reports an auction that closed incorrectly:
+
+1. Pull `audit_logs` rows for the listing —
+   `select * from audit_logs where target = '<listing-uuid>' order by at`.
+2. Cross-check with the `bids` table — server-recorded amounts are
+   authoritative; client-displayed numbers may have been stale.
+3. If a duplicate `current_high_bidder_id` ever appears in `listings`,
+   that's a place_bid invariant violation. Treat as a sev-1: snapshot
+   the row, halt the close sweep with
+   `select cron.unschedule('mazad_close_listings_sweep');`, and replay
+   the bids in arrival order against a freshly-reset listing to find
+   the divergence point before resuming.
+
+### Tuning the proxy-bid iteration cap
+
+Default cap is 20 per user-bid event (ADR-0013). If `bid_count` is
+regularly hitting `(user_bids * 22)` in real auctions — i.e. real
+chains are being truncated — bump the cap in the migration's
+`v_max_proxy_iters` constant and ship a follow-up migration.
+
+## Production hard-gate flip checklist
+
+Before any public launch, flip the following hard-gate flags from their
+dev/early-launch defaults to production values:
+
+```sql
+-- ADR-0008: Tier 2 KYC admin review queue must be live BEFORE this flip.
+update feature_flags set enabled = false where name = 'auto_grant_tier2';
+
+-- ADR-0008: Escrow opens only after the KYC admin queue is live.
+update feature_flags set enabled = true  where name = 'phase7_escrow_enabled';
+```
+
+Verify in the same session:
+
+```sql
+select name, enabled from feature_flags
+ where name in ('auto_grant_tier2', 'phase7_escrow_enabled');
+```
+
+After the flip, bids on auto-granted (admin-unreviewed) sellers raise
+`seller_not_reviewed`. The admin console must show every Tier-2 seller
+that needs human review.
+
 ## To be expanded as we accumulate ops procedures
 
-- Bid integrity incident response
 - Payment provider outage failover
 - Dispute SLA escalation
 - SMS provider rotation (Twilio ↔ Vonage)
@@ -167,3 +240,9 @@ These items must be resolved before any public launch, App Store submission, or 
 - **Required**: Add CORS headers to the 426 response so Flutter Web clients can read the body and render the force-update screen instead of a generic network error.
 - **Hard gate**: Before public web launch.
 - **Owner**: Engineering. ~30 min fix.
+
+### 6. Production hard-gate flag flip
+- **Status**: Phase 3 added `auto_grant_tier2` defaulted ON; combined with `phase7_escrow_enabled` (off by default), bids are accepted on auto-granted sellers in dev.
+- **Required**: Flip `auto_grant_tier2 = false` and `phase7_escrow_enabled = true` as one coordinated migration, gated on the KYC admin review queue going live.
+- **Hard gate**: Before any public launch. See "Production hard-gate flip checklist" above.
+- **Owner**: Engineering + Ops (review queue must be staffed before the flip).

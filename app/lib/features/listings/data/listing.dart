@@ -23,6 +23,8 @@ class Listing {
     this.reservePrice,
     this.currentHigh,
     this.currentCloseAt,
+    this.discoveryEndsAt,
+    this.hardCloseAt,
     this.publishedAt,
     this.videoVerified = false,
     this.bidCount = 0,
@@ -45,6 +47,8 @@ class Listing {
   final int? reservePrice; // IQD
   final int? currentHigh; // IQD
   final DateTime? currentCloseAt;
+  final DateTime? discoveryEndsAt;
+  final DateTime? hardCloseAt;
   final DateTime? publishedAt;
   final bool videoVerified;
   final int bidCount;
@@ -67,6 +71,8 @@ class Listing {
         reservePrice: _asInt(json['reserve_price']),
         currentHigh: _asInt(json['current_high']),
         currentCloseAt: _asDate(json['current_close_at']),
+        discoveryEndsAt: _asDate(json['discovery_ends_at']),
+        hardCloseAt: _asDate(json['hard_close_at']),
         publishedAt: _asDate(json['published_at']),
         videoVerified: (json['video_verified'] ?? false) as bool,
         bidCount: _asInt(json['bid_count']) ?? 0,
