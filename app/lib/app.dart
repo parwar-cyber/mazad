@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mazad/core/design/theme.dart';
+import 'package:mazad/core/i18n/ku_localization_delegates.dart';
 import 'package:mazad/core/i18n/locale_provider.dart';
 import 'package:mazad/core/router/app_router.dart';
 import 'package:mazad/l10n/generated/app_localizations.dart';
@@ -23,6 +24,12 @@ class MazadApp extends ConsumerWidget {
       supportedLocales: supportedLocales,
       localizationsDelegates: const [
         AppLocalizations.delegate,
+        // Sorani Kurdish proxies. Must come BEFORE the Global* delegates so
+        // ku locales match these first; everything else falls through to
+        // the bundled translations. See ku_localization_delegates.dart.
+        KuMaterialLocalizationsDelegate(),
+        KuCupertinoLocalizationsDelegate(),
+        KuWidgetsLocalizationsDelegate(),
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
