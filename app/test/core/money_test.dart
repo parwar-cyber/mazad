@@ -112,8 +112,10 @@ void main() {
       expect(KycTierCeiling.forTier(0), 0);
     });
 
-    test('Tier 2 ceiling is bigint max — no practical ceiling', () {
-      expect(KycTierCeiling.tier2, 9223372036854775807);
+    test('Tier 2 ceiling is JS-safe max — no practical ceiling', () {
+      // 2^53 — the largest int dart2js can represent exactly. Still
+      // ~9 quadrillion IQD, far above any realistic auction.
+      expect(KycTierCeiling.tier2, 9007199254740992);
     });
 
     test('forTier dispatches by integer', () {

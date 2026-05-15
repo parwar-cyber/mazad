@@ -66,8 +66,12 @@ class KycTierCeiling {
   KycTierCeiling._();
 
   static const int tier0 = 0;
-  static const int tier1 = 100000;            // 100,000 IQD
-  static const int tier2 = 9223372036854775807; // bigint max — no ceiling
+  static const int tier1 = 100000; // 100,000 IQD
+
+  /// Tier 2 has no ceiling. Value is JS-safe (Number.MAX_SAFE_INTEGER = 2^53),
+  /// which is ~9 quadrillion IQD — far beyond any plausible bid amount.
+  /// Server-side validation in place_bid uses bigint and has no such constraint.
+  static const int tier2 = 9007199254740992;
 
   static int forTier(int tier) {
     switch (tier) {
