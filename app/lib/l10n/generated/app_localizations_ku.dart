@@ -568,7 +568,109 @@ class AppLocalizationsKu extends AppLocalizations {
   String get listingDetailCancelledBadge => 'هەڵوەشێنراوەتەوە';
 
   @override
+  String get listingDetailSoldBadge => 'فرۆشراوە';
+
+  @override
+  String get listingDetailExpiredBadge => 'تەواوبووە';
+
+  @override
   String get listingDetailUnavailable => 'ئەم ڕیکلامە بەردەست نییە.';
+
+  @override
+  String biddingBidCount(int count) {
+    return '$count مەزایەدە';
+  }
+
+  @override
+  String get biddingCountdownDiscoveryLabel => 'دۆزینەوە کۆتایی دێت لە';
+
+  @override
+  String get biddingCountdownSmartCloseLabel =>
+      'داخستنی زیرەک: ١٢ سەعات لە دوای دواین مەزایەدە کۆتایی دێت';
+
+  @override
+  String get biddingCountdownClosed => 'مەزاد داخراوە';
+
+  @override
+  String get biddingConsoleMinNext => 'کەمترین مەزایەدەی داهاتوو';
+
+  @override
+  String get biddingConsoleSetMax => 'زۆرترین بڕی مەزایەدە دیاری بکە';
+
+  @override
+  String get biddingConsoleSellerCantBid =>
+      'ناتوانیت لە ڕیکلامی خۆت مەزایەدە بکەیت.';
+
+  @override
+  String get biddingConsoleTier1Required =>
+      'ژمارەکەت پشتڕاست بکەرەوە بۆ مەزایەدەکردن.';
+
+  @override
+  String get biddingMaxSheetTitle => 'زۆرترین بڕی مەزایەدەکەت دیاری بکە';
+
+  @override
+  String get biddingMaxSheetSubtitle =>
+      'بە خۆکار لە جێگەی تۆ مەزایەدە دەکەین تا ئەم بڕە، یەک بەرز بەرز.';
+
+  @override
+  String get biddingMaxSheetLabel => 'زۆرترین مەزایەدە (IQD)';
+
+  @override
+  String get biddingMaxSheetConfirm => 'پشتڕاستکردنەوە';
+
+  @override
+  String get biddingPlaced => 'مەزایەدەکە تۆمارکرا.';
+
+  @override
+  String get biddingErrorSelfBid => 'ناتوانیت لە ڕیکلامی خۆت مەزایەدە بکەیت.';
+
+  @override
+  String get biddingErrorTooLow =>
+      'مەزایەدەکە لە کەمترین بڕ کەمترە. ئەم بڕە پێشنیارکراوە تاقی بکەرەوە.';
+
+  @override
+  String get biddingErrorRateLimited =>
+      'هێواش بکە — مەزایەدە زۆرت کرد لە دەقیقەی ڕابردوودا.';
+
+  @override
+  String get biddingErrorClosed => 'ئەم مەزادە تازە داخرا.';
+
+  @override
+  String get biddingErrorTier1 => 'ژمارەکەت پشتڕاست بکەرەوە بۆ مەزایەدەکردن.';
+
+  @override
+  String get biddingErrorTierCeiling =>
+      'ئەم بڕە لە سنووری ئاستی تۆ تێپەڕیوە. KYC بەرز بکەرەوە.';
+
+  @override
+  String get biddingErrorSellerUnreviewed =>
+      'ئەم فرۆشیارە لە چاوەڕێی پشتڕاستکردنەوەی بەڕێوەبەرە.';
+
+  @override
+  String get biddingErrorNotActive => 'ئەم ڕیکلامە کراوە نییە بۆ مەزایەدە.';
+
+  @override
+  String get biddingErrorGeneric =>
+      'نەمانتوانی مەزایەدەکە تۆمار بکەین. دووبارە هەوڵبدە.';
+
+  @override
+  String get biddingFeedTitle => 'مەزایەدە زیندووەکان';
+
+  @override
+  String get biddingFeedEmpty => 'یەکەم کەس بە بۆ مەزایەدەکردن.';
+
+  @override
+  String get biddingFeedJustNow => 'ئێستا';
+
+  @override
+  String biddingFeedMinutesAgo(int m) {
+    return '$m د پێش';
+  }
+
+  @override
+  String biddingFeedHoursAgo(int h) {
+    return '$h ک پێش';
+  }
 
   @override
   String get browseTitle => 'بگەڕێ';

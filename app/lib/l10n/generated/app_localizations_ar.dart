@@ -555,7 +555,106 @@ class AppLocalizationsAr extends AppLocalizations {
   String get listingDetailCancelledBadge => 'ملغى';
 
   @override
+  String get listingDetailSoldBadge => 'تم البيع';
+
+  @override
+  String get listingDetailExpiredBadge => 'انتهى';
+
+  @override
   String get listingDetailUnavailable => 'هذا الإعلان غير متوفر.';
+
+  @override
+  String biddingBidCount(int count) {
+    return '$count مزايدات';
+  }
+
+  @override
+  String get biddingCountdownDiscoveryLabel => 'ينتهي الاكتشاف بعد';
+
+  @override
+  String get biddingCountdownSmartCloseLabel =>
+      'إغلاق ذكي: ينتهي بعد 12 ساعة من آخر مزايدة';
+
+  @override
+  String get biddingCountdownClosed => 'أُغلق المزاد';
+
+  @override
+  String get biddingConsoleMinNext => 'أقل مزايدة تالية';
+
+  @override
+  String get biddingConsoleSetMax => 'حدّد مبلغًا أقصى';
+
+  @override
+  String get biddingConsoleSellerCantBid => 'لا يمكنك المزايدة على إعلانك.';
+
+  @override
+  String get biddingConsoleTier1Required => 'وثّق هاتفك للبدء بالمزايدة.';
+
+  @override
+  String get biddingMaxSheetTitle => 'حدّد أقصى مزايدة لك';
+
+  @override
+  String get biddingMaxSheetSubtitle =>
+      'سنزايد عنك تلقائيًا حتى هذا المبلغ، خطوة بخطوة.';
+
+  @override
+  String get biddingMaxSheetLabel => 'أقصى مزايدة (د.ع)';
+
+  @override
+  String get biddingMaxSheetConfirm => 'تأكيد';
+
+  @override
+  String get biddingPlaced => 'تمت المزايدة.';
+
+  @override
+  String get biddingErrorSelfBid => 'لا يمكنك المزايدة على إعلانك.';
+
+  @override
+  String get biddingErrorTooLow =>
+      'المزايدة أقل من الحد الأدنى. جرّب المبلغ المقترح.';
+
+  @override
+  String get biddingErrorRateLimited =>
+      'تمهّل — أرسلت مزايدات كثيرة خلال الدقيقة الأخيرة.';
+
+  @override
+  String get biddingErrorClosed => 'انتهى هذا المزاد للتو.';
+
+  @override
+  String get biddingErrorTier1 => 'وثّق هاتفك للبدء بالمزايدة.';
+
+  @override
+  String get biddingErrorTierCeiling =>
+      'المبلغ يتجاوز سقف فئتك. رفّع توثيق الهوية لرفع السقف.';
+
+  @override
+  String get biddingErrorSellerUnreviewed =>
+      'هذا البائع قيد المراجعة. ستفتح المزايدة قريبًا.';
+
+  @override
+  String get biddingErrorNotActive => 'الإعلان غير مفتوح للمزايدة.';
+
+  @override
+  String get biddingErrorGeneric => 'تعذّر تسجيل المزايدة. حاول مجددًا.';
+
+  @override
+  String get biddingFeedTitle => 'المزايدات الحية';
+
+  @override
+  String get biddingFeedEmpty => 'كن أول من يزايد.';
+
+  @override
+  String get biddingFeedJustNow => 'الآن';
+
+  @override
+  String biddingFeedMinutesAgo(int m) {
+    return 'قبل $m د';
+  }
+
+  @override
+  String biddingFeedHoursAgo(int h) {
+    return 'قبل $h س';
+  }
 
   @override
   String get browseTitle => 'تصفّح';

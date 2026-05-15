@@ -318,6 +318,113 @@ upload they don't need.
 
 ---
 
+## ADR-0013: Phase 3 bidding-engine — proxy loop cap, RLS, search_path fix
+
+**Date**: 2026-05-15
+**Status**: Accepted
+
+**Context**: Phase 3 puts real money in motion under concurrency for the
+first time. Three design decisions stood out as needing a permanent record.
+
+**Decision (a) — Proxy bidding as a capped iterative loop, never a recursive
+trigger.** `place_bid` runs the proxy escalation in-line inside the same
+transaction, with a hard cap of 20 auto-bids per user-bid event. The cap
+exists for one specific pathological case: two users with `max_amount`
+values that overlap by exactly `min_increment` will ping-pong every
+iteration. Without the cap, a single human bid could trigger
+thousands of auto-bids in one transaction and lock the listings row for
+seconds. We considered a recursive `AFTER INSERT` trigger on `bids`; we
+rejected it because (1) recursion depth is bounded by `max_stack_depth`,
+which is not the protection we want — we want bounded *work per
+user-bid*, and (2) trigger recursion makes the audit trail harder to read
+(every auto-bid looks like a separate user action in `pg_stat_statements`).
+
+**Decision (b) — Bidding RLS: deny direct INSERT, allow read through the
+pseudonymized view.** No INSERT policy on `bids`. All writes go through
+the SECURITY DEFINER `place_bid()` function which bypasses RLS for the
+single privileged INSERT. Reads stay on the Phase 0 `bids_self_or_seller_read`
+policy. Public bid feeds (Phase 3 detail screen, Phase 5 notifications)
+go through the new `listing_bid_feed` view joined onto `profiles_public`
+— so the join is from a pseudonymized projection and `display_name`
+cannot leak no matter what UI code does. We also explicitly REVOKE
+INSERT/UPDATE/DELETE on `bids` from `authenticated` and `anon` as
+defense-in-depth: if a future migration adds a permissive policy by
+mistake, PostgREST callers still can't write directly.
+
+**Decision (c) — Fix-in-place for the Phase 1 `generate_pseudonym`
+search_path bug.** `generate_pseudonym()` was created with
+`set search_path = public, pg_temp` but calls `gen_random_bytes` from
+pgcrypto, which lives in the `extensions` schema. Every auth signup
+would have failed in production. We didn't notice during Phase 1
+because there was no integration test that exercised the
+auth-user-create trigger end-to-end. Phase 3's bidding fixtures are the
+first time we drive the trigger from automated tests. Rather than ship
+a separate hotfix migration, we re-create the function with the correct
+search_path inside the Phase 3 migration. Behavior is unchanged — the
+function body is byte-identical except for the schema list. Caught and
+fixed before the function caused real user damage.
+
+**Decision (d) — Bidder Tier 1 ceiling enforced in `place_bid`.** Sellers
+need Tier 2 to publish auctions (ADR-0010). Bidders only need Tier 1.
+The Tier 1 IQD ceiling (`kyc_max_action_iqd(1)` = 100,000 IQD) applies
+to both the explicit `amount` and the `max_amount`. If a proxy
+escalation would lift a Tier-1 bidder above their ceiling, the loop
+exits cleanly rather than placing the over-ceiling auto-bid — the
+listing simply stops escalating against that bidder. This mirrors how
+a human at the ceiling would behave (they would stop bidding).
+
+**Consequences**:
+- The 20-iter cap is a tunable. We picked 20 because it covers ~95% of
+  realistic two-way escalations (eBay's median proxy chain is 4-6
+  iterations from analysis published in the early 2010s) while bounding
+  the worst case. Revisit after Phase 7 if real auctions show that
+  legitimate chains regularly exceed 20.
+- The `auto_grant_tier2` feature flag is wired into `place_bid` as the
+  ADR-0008 hard gate. Default ON for dev/early-launch; **must be flipped
+  OFF in production once Phase 9 admin queue starts populating
+  `seller_profiles.reviewed_by`.** See runbook §"Production hard-gate
+  flip checklist."
+
+**Supersedes**: nothing.
+
+---
+
+## ADR-0014: Phase 3 testing — Deno + direct Postgres for concurrency
+
+**Date**: 2026-05-15
+**Status**: Accepted
+
+**Context**: CLAUDE.md mandates 50-concurrent-bidder integration tests
+on the `place_bid` RPC. Flutter's `flutter test` can't open 50
+real Postgres connections; pgTAP works inside a single transaction and
+can't simulate concurrency; a separate Go/Rust runner would be one more
+toolchain to maintain.
+
+**Decision**: Concurrency tests live in `supabase/tests/` as Deno
+scripts using `npm:postgres@3.4.5`. We already require Deno for Edge
+Functions; reusing it costs nothing. Each test opens its own pool, sets
+`request.jwt.claims` on a reserved connection to impersonate the
+target user (matching how PostgREST authenticates), and asserts both
+RPC outcomes and resulting table state.
+
+**Why direct Postgres and not PostgREST**:
+- PostgREST adds an extra serialization layer between the test and the
+  RPC, which makes "50 simultaneous calls" harder to reason about.
+- Setting `request.jwt.claims` directly on the connection is the same
+  GUC PostgREST uses under the hood — semantically identical, just
+  bypasses HTTP.
+- Direct Postgres lets us assert intermediate state (per-bid rows,
+  audit_logs entries) without round-tripping through views.
+
+**Trade-offs**:
+- The tests need a running local Supabase. CI will need to spin one up
+  before invoking `just test-bidding`. Documented in `runbook.md`.
+- Tests can't validate PostgREST-specific serialization quirks. Phase 5
+  will add a separate integration smoke that calls `place_bid` over
+  HTTP using the Supabase JS client to close that gap.
+
+---
+
 ## Open refactor TODOs
 
 - Bundle Inter + Vazirmatn as repo assets instead of `google_fonts` runtime fetch — improves cold-start, removes external dependency at boot. Phase 9 polish task.

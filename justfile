@@ -70,3 +70,12 @@ functions-deploy-one fn:
 # Tail logs for one Edge Function
 functions-logs fn:
     supabase functions logs {{fn}} --tail
+
+# Phase 3 — Postgres integration tests for the bidding engine.
+# Runs the place_bid RPC under concurrency (50 bidders) + Smart Close +
+# proxy + RLS + error-case scenarios against the local supabase stack.
+# Requires `supabase start` first.
+test-bidding:
+    cd supabase/tests && deno test --no-check \
+      --allow-net --allow-env --allow-read --allow-sys --allow-write \
+      phase3_bidding_test.ts

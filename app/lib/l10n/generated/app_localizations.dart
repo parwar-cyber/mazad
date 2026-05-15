@@ -65,7 +65,7 @@ import 'app_localizations_tr.dart';
 /// property.
 abstract class AppLocalizations {
   AppLocalizations(String locale)
-      : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+    : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -88,18 +88,18 @@ abstract class AppLocalizations {
   /// of delegates is preferred or required.
   static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
       <LocalizationsDelegate<dynamic>>[
-    delegate,
-    GlobalMaterialLocalizations.delegate,
-    GlobalCupertinoLocalizations.delegate,
-    GlobalWidgetsLocalizations.delegate,
-  ];
+        delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ];
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
     Locale('ar'),
     Locale('en'),
     Locale('ku'),
-    Locale('tr')
+    Locale('tr'),
   ];
 
   /// App display name
@@ -1140,11 +1140,185 @@ abstract class AppLocalizations {
   /// **'Cancelled'**
   String get listingDetailCancelledBadge;
 
+  /// No description provided for @listingDetailSoldBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Sold'**
+  String get listingDetailSoldBadge;
+
+  /// No description provided for @listingDetailExpiredBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Ended'**
+  String get listingDetailExpiredBadge;
+
   /// No description provided for @listingDetailUnavailable.
   ///
   /// In en, this message translates to:
   /// **'This listing isn\'t available.'**
   String get listingDetailUnavailable;
+
+  /// No description provided for @biddingBidCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} bids'**
+  String biddingBidCount(int count);
+
+  /// No description provided for @biddingCountdownDiscoveryLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Discovery ends in'**
+  String get biddingCountdownDiscoveryLabel;
+
+  /// No description provided for @biddingCountdownSmartCloseLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Smart Close: ends 12h after last bid'**
+  String get biddingCountdownSmartCloseLabel;
+
+  /// No description provided for @biddingCountdownClosed.
+  ///
+  /// In en, this message translates to:
+  /// **'Auction closed'**
+  String get biddingCountdownClosed;
+
+  /// No description provided for @biddingConsoleMinNext.
+  ///
+  /// In en, this message translates to:
+  /// **'Min next bid'**
+  String get biddingConsoleMinNext;
+
+  /// No description provided for @biddingConsoleSetMax.
+  ///
+  /// In en, this message translates to:
+  /// **'Set a max bid'**
+  String get biddingConsoleSetMax;
+
+  /// No description provided for @biddingConsoleSellerCantBid.
+  ///
+  /// In en, this message translates to:
+  /// **'You can\'t bid on your own listing.'**
+  String get biddingConsoleSellerCantBid;
+
+  /// No description provided for @biddingConsoleTier1Required.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify your phone to start bidding.'**
+  String get biddingConsoleTier1Required;
+
+  /// No description provided for @biddingMaxSheetTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Set your max bid'**
+  String get biddingMaxSheetTitle;
+
+  /// No description provided for @biddingMaxSheetSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'We\'ll auto-bid for you up to this amount, one minimum increment at a time.'**
+  String get biddingMaxSheetSubtitle;
+
+  /// No description provided for @biddingMaxSheetLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Max bid (IQD)'**
+  String get biddingMaxSheetLabel;
+
+  /// No description provided for @biddingMaxSheetConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm'**
+  String get biddingMaxSheetConfirm;
+
+  /// No description provided for @biddingPlaced.
+  ///
+  /// In en, this message translates to:
+  /// **'Bid placed.'**
+  String get biddingPlaced;
+
+  /// No description provided for @biddingErrorSelfBid.
+  ///
+  /// In en, this message translates to:
+  /// **'You can\'t bid on your own listing.'**
+  String get biddingErrorSelfBid;
+
+  /// No description provided for @biddingErrorTooLow.
+  ///
+  /// In en, this message translates to:
+  /// **'Bid below the minimum increment. Try the suggested amount.'**
+  String get biddingErrorTooLow;
+
+  /// No description provided for @biddingErrorRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Slow down — you\'ve placed too many bids in the last minute.'**
+  String get biddingErrorRateLimited;
+
+  /// No description provided for @biddingErrorClosed.
+  ///
+  /// In en, this message translates to:
+  /// **'This auction just closed.'**
+  String get biddingErrorClosed;
+
+  /// No description provided for @biddingErrorTier1.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify your phone to start bidding.'**
+  String get biddingErrorTier1;
+
+  /// No description provided for @biddingErrorTierCeiling.
+  ///
+  /// In en, this message translates to:
+  /// **'This amount exceeds your tier limit. Upgrade KYC to bid higher.'**
+  String get biddingErrorTierCeiling;
+
+  /// No description provided for @biddingErrorSellerUnreviewed.
+  ///
+  /// In en, this message translates to:
+  /// **'This seller is pending admin review. Bidding will open soon.'**
+  String get biddingErrorSellerUnreviewed;
+
+  /// No description provided for @biddingErrorNotActive.
+  ///
+  /// In en, this message translates to:
+  /// **'This listing isn\'t open for bidding.'**
+  String get biddingErrorNotActive;
+
+  /// No description provided for @biddingErrorGeneric.
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn\'t place the bid. Try again.'**
+  String get biddingErrorGeneric;
+
+  /// No description provided for @biddingFeedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Live bids'**
+  String get biddingFeedTitle;
+
+  /// No description provided for @biddingFeedEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Be the first to bid.'**
+  String get biddingFeedEmpty;
+
+  /// No description provided for @biddingFeedJustNow.
+  ///
+  /// In en, this message translates to:
+  /// **'just now'**
+  String get biddingFeedJustNow;
+
+  /// No description provided for @biddingFeedMinutesAgo.
+  ///
+  /// In en, this message translates to:
+  /// **'{m}m ago'**
+  String biddingFeedMinutesAgo(int m);
+
+  /// No description provided for @biddingFeedHoursAgo.
+  ///
+  /// In en, this message translates to:
+  /// **'{h}h ago'**
+  String biddingFeedHoursAgo(int h);
 
   /// No description provided for @browseTitle.
   ///
@@ -1262,8 +1436,9 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
   }
 
   throw FlutterError(
-      'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-      'an issue with the localizations generation tool. Please file an issue '
-      'on GitHub with a reproducible sample app and the gen-l10n configuration '
-      'that was used.');
+    'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+    'an issue with the localizations generation tool. Please file an issue '
+    'on GitHub with a reproducible sample app and the gen-l10n configuration '
+    'that was used.',
+  );
 }

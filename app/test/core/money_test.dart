@@ -26,7 +26,8 @@ void main() {
       expect(out.contains('25'), isTrue);
     });
 
-    test('Kurdish (Sorani) uses Arabic-script numeric grouping, "IQD" suffix', () {
+    test('Kurdish (Sorani) uses Arabic-script numeric grouping, "IQD" suffix',
+        () {
       final out = formatIQD(25000, const Locale('ku'));
       expect(out.endsWith('IQD'), isTrue);
       expect(out.contains('25'), isTrue);
@@ -54,6 +55,41 @@ void main() {
       expect(minimumBidIncrement(20000), 1000); // exactly at crossover
       expect(minimumBidIncrement(100000), 5000);
       expect(minimumBidIncrement(1000000), 50000);
+    });
+
+    // The single most likely "money looks right but is subtly wrong" bug.
+    // 5% as integer division truncates — never rounds.  Mirrors the SQL:
+    //   v_min_increment := greatest(1000, (v_current * 5) / 100);
+    // If we ever switched to double or to a rounding op, the server would
+    // silently disagree with the client about "is this bid valid."
+    group('integer truncation matches server', () {
+      test('99 IQD * 5 / 100 = 4, not 4.95', () {
+        // current 99 → 5% = 4.95 → truncates to 4 → 1000 floor wins.
+        expect(minimumBidIncrement(99), 1000);
+      });
+
+      test('29 999 IQD → 5% = 1 499 (truncated from 1 499.95)', () {
+        expect(minimumBidIncrement(29999), 1499);
+      });
+
+      test('100 001 IQD → 5% = 5 000 (truncated from 5 000.05)', () {
+        expect(minimumBidIncrement(100001), 5000);
+      });
+
+      test('999 999 IQD → 5% = 49 999 (truncated from 49 999.95)', () {
+        expect(minimumBidIncrement(999999), 49999);
+      });
+
+      test('returns plain int — never double / num', () {
+        final r = minimumBidIncrement(123456);
+        expect(r, isA<int>());
+        expect(r.runtimeType, int);
+      });
+
+      test('100 IQD edge: 5 < 1000 floor, so 1000 wins', () {
+        // 100 * 5 / 100 = 5; floor is 1000.
+        expect(minimumBidIncrement(100), 1000);
+      });
     });
   });
 

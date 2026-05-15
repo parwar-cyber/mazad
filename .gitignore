@@ -40,6 +40,8 @@ app/coverage/
 supabase/.branches
 supabase/.temp
 supabase/.env
+supabase/tests/node_modules/
+supabase/tests/deno.lock
 
 # Node / Next.js (admin)
 admin/node_modules/
